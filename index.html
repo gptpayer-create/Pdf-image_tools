@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>gptpayer — PDF & Image tools, done fast</title>
+<meta name="description" content="Merge, split, compress and convert PDFs and images. Free online tools, no install.">
+
+<!-- Favicon -->
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<meta name="theme-color" content="#14171F">
+
+<!-- Google Search Console: uncomment and paste your verification tag once you have it
+<meta name="google-site-verification" content="REPLACE_WITH_YOUR_CODE"> -->
+
+<!-- Google Analytics (GA4): uncomment both blocks and replace G-XXXXXXXXXX with your real Measurement ID
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-XXXXXXXXXX");
+</script>
+-->
+<link rel="canonical" href="https://gptpayer.online/">
+<link rel="manifest" href="site.webmanifest">
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="gptpayer">
+<meta property="og:title" content="gptpayer — PDF & Image tools, done fast">
+<meta property="og:description" content="Merge, split, compress and convert PDFs and images. Free online tools, no install.">
+<meta property="og:image" content="https://gptpayer.online/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://gptpayer.online/">
+
+<!-- Twitter card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="gptpayer — PDF & Image tools, done fast">
+<meta name="twitter:description" content="Merge, split, compress and convert PDFs and images. Free online tools, no install.">
+<meta name="twitter:image" content="https://gptpayer.online/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="#top" class="logo">
+      <span class="logo-mark" aria-hidden="true">
+        <span class="mark-page"></span><span class="mark-photo"></span>
+      </span>
+      gptpayer
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="#pdf-tools">PDF tools</a>
+      <a href="#image-tools">Image tools</a>
+      <a href="#how-it-works">How it works</a>
+    </nav>
+    <a href="#pdf-tools" class="btn btn-ghost">Start free</a>
+    <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobile-nav" hidden>
+  <nav aria-label="Mobile">
+    <a href="#pdf-tools">PDF tools</a>
+    <a href="#image-tools">Image tools</a>
+    <a href="#how-it-works">How it works</a>
+    <a href="#pdf-tools" class="btn btn-coral mobile-nav-cta">Start free</a>
+  </nav>
+</div>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <p class="eyebrow">One tab. Two toolkits.</p>
+      <h1>
+        Turn a <span class="hero-shape hero-shape--page">page</span>
+        into a <span class="hero-shape hero-shape--photo">picture</span>.
+        Or back again.
+      </h1>
+      <p class="hero-sub">Every PDF tool and every image tool people actually reach for, in one place. Files are processed right in your browser — nothing is uploaded to a server.</p>
+      <div class="hero-actions">
+        <a href="#pdf-tools" class="btn btn-coral">Work with a PDF</a>
+        <a href="#image-tools" class="btn btn-teal">Work with an image</a>
+      </div>
+      <div class="hero-chips" aria-hidden="true">
+        <span class="chip chip-coral">.PDF</span>
+        <span class="chip-arrow">→</span>
+        <span class="chip chip-teal">.JPG</span>
+        <span class="chip-sep">/</span>
+        <span class="chip chip-teal">.PNG</span>
+        <span class="chip-arrow">→</span>
+        <span class="chip chip-coral">.PDF</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="pdf-tools" class="tool-section tool-section--pdf">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-tag section-tag--coral">PDF</span>
+        <h2>Tools for documents</h2>
+        <p>Organize, optimize, convert, edit and secure — without leaving the browser.</p>
+      </div>
+
+      <h3 class="subcat subcat--coral">Organize PDF</h3>
+      <div class="tool-grid">
+        <button type="button" class="tool-card" data-tool="merge-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">⇶</span>
+          <h3>Merge PDF</h3>
+          <p>Combine several PDFs into a single ordered file.</p>
+        </button>
+        <button type="button" class="tool-card" data-tool="split-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">⇥</span>
+          <h3>Split PDF</h3>
+          <p>Pull a page range out into its own file.</p>
+        </button>
+        <button type="button" class="tool-card" data-tool="remove-pages">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">✕</span>
+          <h3>Remove Pages</h3>
+          <p>Delete specific pages, e.g. 2, 5-7.</p>
+        </button>
+        <button type="button" class="tool-card" data-tool="extract-pages">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">➜</span>
+          <h3>Extract Pages</h3>
+          <p>Pull specific pages into a new file, e.g. 1, 3, 5-6.</p>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="organize-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">▤</span>
+          <h3>Organize PDF</h3>
+          <p>Drag pages into a new order visually.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="scan-to-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">▣</span>
+          <h3>Scan to PDF</h3>
+          <p>Turn camera photos of paper docs into a clean PDF.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+      </div>
+
+      <h3 class="subcat subcat--coral">Optimize PDF</h3>
+      <div class="tool-grid">
+        <button type="button" class="tool-card" data-tool="compress-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">↓</span>
+          <h3>Compress PDF</h3>
+          <p>Shrink file size while keeping pages readable.</p>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="repair-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">⚙</span>
+          <h3>Repair PDF</h3>
+          <p>Fix a corrupted or broken PDF file.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="ocr-pdf">
+          <span class="tool-icon tool-icon--coral tool-icon--wide" aria-hidden="true">OCR</span>
+          <h3>OCR PDF</h3>
+          <p>Make a scanned PDF searchable and selectable.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+      </div>
+
+      <h3 class="subcat subcat--coral">Convert to / from PDF</h3>
+      <div class="tool-grid">
+        <button type="button" class="tool-card" data-tool="pdf-to-jpg">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">▤</span>
+          <h3>PDF to JPG</h3>
+          <p>Export each page as a standalone image.</p>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="word-to-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">W</span>
+          <h3>Word to PDF</h3>
+          <p>Turn a .docx into a PDF.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="pdf-to-word">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">W</span>
+          <h3>PDF to Word</h3>
+          <p>Convert to an editable .docx, layout kept intact.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="ppt-to-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">P</span>
+          <h3>PowerPoint to PDF</h3>
+          <p>Turn a .pptx into a PDF.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="pdf-to-ppt">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">P</span>
+          <h3>PDF to PowerPoint</h3>
+          <p>Convert pages into editable slides.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="excel-to-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">X</span>
+          <h3>Excel to PDF</h3>
+          <p>Turn a spreadsheet into a PDF.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="pdf-to-excel">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">X</span>
+          <h3>PDF to Excel</h3>
+          <p>Pull tables out into a spreadsheet.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="html-to-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">🌐</span>
+          <h3>HTML to PDF</h3>
+          <p>Render a web page as a PDF.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="pdf-to-pdfa">
+          <span class="tool-icon tool-icon--coral tool-icon--wide" aria-hidden="true">/A</span>
+          <h3>PDF to PDF/A</h3>
+          <p>Convert to the long-term archival format.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+      </div>
+
+      <h3 class="subcat subcat--coral">Edit PDF</h3>
+      <div class="tool-grid">
+        <button type="button" class="tool-card" data-tool="rotate-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">↻</span>
+          <h3>Rotate PDF</h3>
+          <p>Fix sideways or upside-down pages in one pass.</p>
+        </button>
+        <button type="button" class="tool-card" data-tool="pdf-page-numbers">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">#</span>
+          <h3>Add Page Numbers</h3>
+          <p>Stamp "1 / N" at the bottom of every page.</p>
+        </button>
+        <button type="button" class="tool-card" data-tool="pdf-watermark">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">©</span>
+          <h3>Add Watermark</h3>
+          <p>Diagonal text watermark across every page.</p>
+        </button>
+        <button type="button" class="tool-card" data-tool="crop-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">⛶</span>
+          <h3>Crop PDF</h3>
+          <p>Trim margins off every page by a fixed amount.</p>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="edit-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">✎</span>
+          <h3>Edit PDF</h3>
+          <p>Add text, shapes or freehand marks on the page.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="pdf-forms">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">▢</span>
+          <h3>PDF Forms</h3>
+          <p>Fill in fillable form fields.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+      </div>
+
+      <h3 class="subcat subcat--coral">PDF Security</h3>
+      <div class="tool-grid">
+        <button type="button" class="tool-card tool-card--soon" data-tool="unlock-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">🔓</span>
+          <h3>Unlock PDF</h3>
+          <p>Remove a known password from a PDF.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="protect-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">🔒</span>
+          <h3>Protect PDF</h3>
+          <p>Add a password so only the right people can open it.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+        <button type="button" class="tool-card" data-tool="sign-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">✒</span>
+          <h3>Sign PDF</h3>
+          <p>Stamp a typed signature onto a page.</p>
+        </button>
+        <button type="button" class="tool-card" data-tool="redact-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">▬</span>
+          <h3>Redact PDF</h3>
+          <p>Black out a region on a page for good.</p>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="compare-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">⇄</span>
+          <h3>Compare PDF</h3>
+          <p>See what changed between two versions.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+      </div>
+
+      <h3 class="subcat subcat--coral">PDF Intelligence</h3>
+      <div class="tool-grid">
+        <button type="button" class="tool-card tool-card--soon" data-tool="ai-summarizer">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">✦</span>
+          <h3>AI Summarizer</h3>
+          <p>Get the key points of a long PDF.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="translate-pdf">
+          <span class="tool-icon tool-icon--coral" aria-hidden="true">文</span>
+          <h3>Translate PDF</h3>
+          <p>Translate the document into another language.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="pdf-to-markdown">
+          <span class="tool-icon tool-icon--coral tool-icon--wide" aria-hidden="true">{#}</span>
+          <h3>PDF to Markdown</h3>
+          <p>Turn a PDF into clean Markdown text.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="image-tools" class="tool-section tool-section--image">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-tag section-tag--teal">Image</span>
+        <h2>Tools for photos</h2>
+        <p>Optimize, create, modify, convert and secure, in a couple of clicks.</p>
+      </div>
+
+      <h3 class="subcat subcat--teal">Optimize</h3>
+      <div class="tool-grid">
+        <button type="button" class="tool-card" data-tool="compress-image">
+          <span class="tool-icon tool-icon--teal" aria-hidden="true">↓</span>
+          <h3>Compress Image</h3>
+          <p>Reduce file size with barely any visible quality loss.</p>
+        </button>
+        <button type="button" class="tool-card" data-tool="upscale-image">
+          <span class="tool-icon tool-icon--teal" aria-hidden="true">⤢</span>
+          <h3>Upscale</h3>
+          <p>Scale up 2× or 4×. Sharper source photos upscale best.</p>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="remove-bg">
+          <span class="tool-icon tool-icon--teal" aria-hidden="true">✂</span>
+          <h3>Remove Background</h3>
+          <p>Cut a subject out onto a transparent layer.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+      </div>
+
+      <h3 class="subcat subcat--teal">Create</h3>
+      <div class="tool-grid">
+        <button type="button" class="tool-card" data-tool="meme-generator">
+          <span class="tool-icon tool-icon--teal" aria-hidden="true">☺</span>
+          <h3>Meme Generator</h3>
+          <p>Classic top and bottom caption text.</p>
+        </button>
+        <button type="button" class="tool-card" data-tool="photo-editor">
+          <span class="tool-icon tool-icon--teal" aria-hidden="true">✎</span>
+          <h3>Photo Editor</h3>
+          <p>Adjust brightness, contrast and saturation.</p>
+        </button>
+      </div>
+
+      <h3 class="subcat subcat--teal">Modify</h3>
+      <div class="tool-grid">
+        <button type="button" class="tool-card" data-tool="resize-image">
+          <span class="tool-icon tool-icon--teal" aria-hidden="true">⤢</span>
+          <h3>Resize Image</h3>
+          <p>Set exact pixels or scale by percentage.</p>
+        </button>
+        <button type="button" class="tool-card" data-tool="crop-image">
+          <span class="tool-icon tool-icon--teal" aria-hidden="true">⛶</span>
+          <h3>Crop Image</h3>
+          <p>Trim to the exact frame you need.</p>
+        </button>
+        <button type="button" class="tool-card" data-tool="rotate-image">
+          <span class="tool-icon tool-icon--teal" aria-hidden="true">↻</span>
+          <h3>Rotate Image</h3>
+          <p>Straighten out sideways shots in a click.</p>
+        </button>
+      </div>
+
+      <h3 class="subcat subcat--teal">Convert</h3>
+      <div class="tool-grid">
+        <button type="button" class="tool-card" data-tool="convert-image">
+          <span class="tool-icon tool-icon--teal" aria-hidden="true">▦</span>
+          <h3>Convert Image</h3>
+          <p>Switch between JPG, PNG and WEBP.</p>
+        </button>
+        <button type="button" class="tool-card" data-tool="image-to-pdf">
+          <span class="tool-icon tool-icon--teal" aria-hidden="true">▤</span>
+          <h3>Image to PDF</h3>
+          <p>Turn one photo or a whole batch into a single PDF.</p>
+        </button>
+        <button type="button" class="tool-card tool-card--soon" data-tool="html-to-image">
+          <span class="tool-icon tool-icon--teal" aria-hidden="true">🌐</span>
+          <h3>HTML to Image</h3>
+          <p>Render a web page as a screenshot.</p>
+          <span class="soon-badge">Coming soon</span>
+        </button>
+      </div>
+
+      <h3 class="subcat subcat--teal">Security</h3>
+      <div class="tool-grid">
+        <button type="button" class="tool-card" data-tool="watermark-image">
+          <span class="tool-icon tool-icon--teal" aria-hidden="true">©</span>
+          <h3>Watermark Image</h3>
+          <p>Stamp text across your image.</p>
+        </button>
+        <button type="button" class="tool-card" data-tool="blur-area">
+          <span class="tool-icon tool-icon--teal" aria-hidden="true">◐</span>
+          <h3>Blur Area</h3>
+          <p>Blur a face or any region you choose manually.</p>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works" class="how-section">
+    <div class="wrap how-inner">
+      <div class="section-head">
+        <h2>How it works</h2>
+      </div>
+      <ol class="how-steps">
+        <li>
+          <span class="how-num">1</span>
+          <h3>Pick a tool</h3>
+          <p>Choose from the PDF or image toolkit above.</p>
+        </li>
+        <li>
+          <span class="how-num">2</span>
+          <h3>Drop your file</h3>
+          <p>Processed on your device, no account needed.</p>
+        </li>
+        <li>
+          <span class="how-num">3</span>
+          <h3>Download the result</h3>
+          <p>Get your converted file back in seconds.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="about" class="about-section">
+    <div class="wrap about-inner">
+      <span class="section-tag section-tag--teal">About</span>
+      <h2>Built to stay out of your way</h2>
+      <p>gptpayer runs every working tool on this page directly in your browser — your file is never uploaded to a server to get merged, compressed, or converted. No account, no waiting on an upload bar. Tools still marked "Coming soon" are labeled that way honestly, not quietly faked.</p>
+      <a href="about.html" class="about-link">More about gptpayer →</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <a href="#top" class="logo logo-footer">
+      <span class="logo-mark" aria-hidden="true">
+        <span class="mark-page"></span><span class="mark-photo"></span>
+      </span>
+      gptpayer
+    </a>
+    <p class="footer-tag">PDF tools and image tools, together.</p>
+    <nav class="footer-legal" aria-label="Legal">
+      <a href="about.html">About</a>
+      <span class="footer-dot">·</span>
+      <a href="privacy.html">Privacy Policy</a>
+      <span class="footer-dot">·</span>
+      <a href="terms.html">Terms of Service</a>
+    </nav>
+    <p class="footer-copy">© 2026 gptpayer.online</p>
+  </div>
+</footer>
+
+<!-- ---------- Tool modal ---------- -->
+<div class="modal-overlay" id="modal-overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button type="button" class="modal-close" id="modal-close" aria-label="Close">✕</button>
+    <h2 class="modal-title" id="modal-title">Tool name</h2>
+    <p class="modal-sub" id="modal-sub">Description</p>
+
+    <div class="dropzone" id="dropzone">
+      <p class="dropzone-text">Drop file here or <span class="dropzone-link">browse</span></p>
+      <input type="file" id="file-input" hidden>
+    </div>
+
+    <div class="file-list" id="file-list"></div>
+
+    <div class="tool-options" id="tool-options"></div>
+
+    <button type="button" class="btn btn-coral modal-run" id="modal-run" disabled>Choose a file first</button>
+
+    <div class="modal-status" id="modal-status" role="status" aria-live="polite"></div>
+    <div class="modal-result" id="modal-result"></div>
+  </div>
+</div>
+
+<!-- Libraries: all processing happens locally in the browser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

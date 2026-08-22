@@ -1,0 +1,13 @@
+{
+  "name": "gptpayer — PDF & Image tools",
+  "short_name": "gptpayer",
+  "description": "Merge, split, compress and convert PDFs and images. Free online tools, no install.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F3EA",
+  "theme_color": "#14171F",
+  "icons": [
+    { "src": "favicon-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "favicon-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
