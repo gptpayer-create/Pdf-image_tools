@@ -11,6 +11,9 @@
   --teal: #1F8C89;
   --teal-dark: #166E6B;
   --line: rgba(20, 23, 31, 0.10);
+  --paper-alt: #F1ECE0;
+  --gold: #D9A441;
+  --on-accent: #FFFFFF;
 
   --font-display: "Fraunces", serif;
   --font-body: "Work Sans", sans-serif;
@@ -18,6 +21,24 @@
 
   --radius: 14px;
   --wrap: 1120px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #F2F0EA;
+    --ink-soft: #D8D5CC;
+    --paper: #14171B;
+    --paper-raised: #1D2126;
+    --slate: #ABAFB9;
+    --slate-soft: #9FA3AD;
+    --coral: #E86A54;
+    --coral-dark: #C4432E;
+    --teal: #35A6A2;
+    --teal-dark: #2A8582;
+    --line: rgba(255, 255, 255, 0.12);
+    --paper-alt: #1A1E23;
+    --gold: #E0B056;
+  }
 }
 
 * { box-sizing: border-box; }
@@ -128,9 +149,9 @@ a { color: inherit; text-decoration: none; }
 .btn:hover { transform: translateY(-1px); }
 .btn-ghost { border-color: var(--ink); color: var(--ink); }
 .btn-ghost:hover { background: var(--ink); color: var(--paper); }
-.btn-coral { background: var(--coral); color: #fff; }
+.btn-coral { background: var(--coral); color: var(--on-accent); }
 .btn-coral:hover { background: var(--coral-dark); box-shadow: 0 6px 18px rgba(227,84,61,0.30); }
-.btn-teal { background: var(--teal); color: #fff; }
+.btn-teal { background: var(--teal); color: var(--on-accent); }
 .btn-teal:hover { background: var(--teal-dark); box-shadow: 0 6px 18px rgba(31,140,137,0.30); }
 
 /* ---------- Hero ---------- */
@@ -203,7 +224,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- Tool sections ---------- */
 .tool-section { padding: 68px 0; }
 .tool-section--pdf { background: var(--paper); }
-.tool-section--image { background: #F1ECE0; }
+.tool-section--image { background: var(--paper-alt); }
 
 .section-head { max-width: 520px; margin: 0 0 36px; }
 .section-tag {
@@ -346,7 +367,7 @@ a { color: inherit; text-decoration: none; }
   margin-bottom: 16px;
 }
 .how-steps li:nth-child(2) .how-num { border-color: var(--teal); color: var(--teal); }
-.how-steps li:nth-child(3) .how-num { border-color: #D9A441; color: #D9A441; }
+.how-steps li:nth-child(3) .how-num { border-color: var(--gold); color: var(--gold); }
 
 .how-steps h3 {
   font-family: var(--font-display);

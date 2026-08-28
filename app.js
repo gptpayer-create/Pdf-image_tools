@@ -430,10 +430,10 @@
         <img src="${entry.thumb}" style="transform:rotate(${entry.rotation}deg)" alt="Page ${entry.page + 1}">
         <span class="page-thumb-num">Page ${entry.page + 1}</span>
         <div class="page-thumb-actions">
-          <button type="button" data-act="up" title="Move earlier">↑</button>
-          <button type="button" data-act="down" title="Move later">↓</button>
-          <button type="button" data-act="rotate" title="Rotate">⟳</button>
-          <button type="button" data-act="del" title="Remove">✕</button>
+          <button type="button" data-act="up" title="Move earlier" aria-label="Move page earlier">↑</button>
+          <button type="button" data-act="down" title="Move later" aria-label="Move page later">↓</button>
+          <button type="button" data-act="rotate" title="Rotate" aria-label="Rotate page">⟳</button>
+          <button type="button" data-act="del" title="Remove" aria-label="Remove page">✕</button>
         </div>`;
       card.querySelector('[data-act="up"]').addEventListener("click", () => { moveOrganizeEntry(idx, -1); renderOrganizeGrid(container); });
       card.querySelector('[data-act="down"]').addEventListener("click", () => { moveOrganizeEntry(idx, 1); renderOrganizeGrid(container); });
@@ -1863,6 +1863,7 @@ h1{font-size:19px;} h2{font-size:14px;margin-top:34px;border-bottom:1px solid #d
           upBtn.type = "button";
           upBtn.className = "file-row-btn";
           upBtn.title = "Move up";
+          upBtn.setAttribute("aria-label", "Move " + file.name + " earlier in the list");
           upBtn.textContent = "↑";
           upBtn.addEventListener("click", () => {
             if (i === 0) return;
@@ -1875,6 +1876,7 @@ h1{font-size:19px;} h2{font-size:14px;margin-top:34px;border-bottom:1px solid #d
           downBtn.type = "button";
           downBtn.className = "file-row-btn";
           downBtn.title = "Move down";
+          downBtn.setAttribute("aria-label", "Move " + file.name + " later in the list");
           downBtn.textContent = "↓";
           downBtn.addEventListener("click", () => {
             if (i === currentFiles.length - 1) return;
@@ -1888,6 +1890,7 @@ h1{font-size:19px;} h2{font-size:14px;margin-top:34px;border-bottom:1px solid #d
         removeBtn.type = "button";
         removeBtn.className = "file-row-btn file-row-remove";
         removeBtn.title = "Remove";
+        removeBtn.setAttribute("aria-label", "Remove " + file.name);
         removeBtn.textContent = "✕";
         removeBtn.addEventListener("click", () => {
           currentFiles.splice(i, 1);
