@@ -1656,6 +1656,8 @@ h1{font-size:19px;} h2{font-size:14px;margin-top:34px;border-bottom:1px solid #d
 
   function openMobileNav() {
     syncHeaderHeight();
+    closeSearchBar();
+    closeNavDropdowns();
     mobileNav.hidden = false;
     hamburger.setAttribute("aria-expanded", "true");
     document.body.style.overflow = "hidden";
@@ -1673,6 +1675,80 @@ h1{font-size:19px;} h2{font-size:14px;margin-top:34px;border-bottom:1px solid #d
     mobileNav.querySelectorAll("a").forEach((a) => a.addEventListener("click", closeMobileNav));
     window.addEventListener("resize", () => {
       if (window.innerWidth > 900 && !mobileNav.hidden) closeMobileNav();
+    });
+  }
+
+  /* ---------------- header search toggle (icon opens/closes the search bar,
+     collapsed by default; closes whenever the hamburger menu opens) --------- */
+  const searchToggle = $("#tool-search-toggle");
+  const searchBar = $("#tool-search-bar");
+  const searchInput = $("#tool-search");
+
+  function openSearchBar() {
+    if (!searchBar) return;
+    if (mobileNav && !mobileNav.hidden) closeMobileNav();
+    closeNavDropdowns();
+    searchBar.hidden = false;
+    if (searchToggle) searchToggle.setAttribute("aria-expanded", "true");
+    if (searchInput) searchInput.focus();
+  }
+  function closeSearchBar() {
+    if (!searchBar) return;
+    searchBar.hidden = true;
+    if (searchToggle) searchToggle.setAttribute("aria-expanded", "false");
+  }
+  if (searchToggle && searchBar) {
+    searchToggle.addEventListener("click", () => {
+      if (searchBar.hidden) openSearchBar();
+      else closeSearchBar();
+    });
+    document.addEventListener("click", (e) => {
+      if (searchBar.hidden) return;
+      if (searchBar.contains(e.target) || searchToggle.contains(e.target)) return;
+      closeSearchBar();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !searchBar.hidden) closeSearchBar();
+    });
+  }
+
+  /* ---------------- desktop nav dropdowns (PDF tools / Image tools show
+     a short-form tool menu on click, alongside the normal anchor scroll) --- */
+  const navItems = document.querySelectorAll(".nav-item");
+  function closeNavDropdowns() {
+    navItems.forEach((item) => {
+      const trigger = item.querySelector(".nav-dropdown-trigger");
+      const dropdown = item.querySelector(".nav-dropdown");
+      if (dropdown) dropdown.hidden = true;
+      if (trigger) trigger.setAttribute("aria-expanded", "false");
+    });
+  }
+  navItems.forEach((item) => {
+    const trigger = item.querySelector(".nav-dropdown-trigger");
+    const dropdown = item.querySelector(".nav-dropdown");
+    if (!trigger || !dropdown) return;
+    trigger.addEventListener("click", (e) => {
+      const isOpen = !dropdown.hidden;
+      closeNavDropdowns();
+      if (!isOpen) {
+        closeSearchBar();
+        dropdown.hidden = false;
+        trigger.setAttribute("aria-expanded", "true");
+        e.stopPropagation();
+      }
+      // No preventDefault: the page still scrolls to the section as before.
+    });
+  });
+  if (navItems.length) {
+    document.addEventListener("click", (e) => {
+      const insideAnyDropdown = Array.from(navItems).some((item) => item.contains(e.target));
+      if (!insideAnyDropdown) closeNavDropdowns();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeNavDropdowns();
+    });
+    window.addEventListener("resize", () => {
+      if (window.innerWidth <= 900) closeNavDropdowns();
     });
   }
 

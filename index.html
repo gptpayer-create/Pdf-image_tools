@@ -88,22 +88,136 @@
       gptpayer
     </a>
     <nav class="main-nav" aria-label="Primary">
-      <a href="#pdf-tools">PDF tools</a>
-      <a href="#image-tools">Image tools</a>
+      <div class="nav-item">
+        <a href="#pdf-tools" class="nav-dropdown-trigger" id="nav-trigger-pdf" aria-expanded="false" aria-controls="nav-dropdown-pdf">PDF tools</a>
+        <div class="nav-dropdown" id="nav-dropdown-pdf" hidden>
+          <div class="nav-dropdown-grid">
+            <a href="merge-pdf.html">Merge</a>
+            <a href="split-pdf.html">Split</a>
+            <a href="remove-pages.html">Remove Pages</a>
+            <a href="extract-pages.html">Extract Pages</a>
+            <a href="organize-pdf.html">Organize</a>
+            <a href="scan-to-pdf.html">Scan to PDF</a>
+            <a href="compress-pdf.html">Compress</a>
+            <a href="repair-pdf.html">Repair</a>
+            <a href="ocr-pdf.html">OCR</a>
+            <a href="pdf-to-jpg.html">PDF → JPG</a>
+            <a href="html-to-pdf.html">HTML → PDF</a>
+            <a href="rotate-pdf.html">Rotate</a>
+            <a href="pdf-page-numbers.html">Page Numbers</a>
+            <a href="pdf-watermark.html">Watermark</a>
+            <a href="crop-pdf.html">Crop</a>
+            <a href="edit-pdf.html">Edit</a>
+            <a href="pdf-forms.html">Forms</a>
+            <a href="unlock-pdf.html">Unlock</a>
+            <a href="sign-pdf.html">Sign</a>
+            <a href="redact-pdf.html">Redact</a>
+            <a href="compare-pdf.html">Compare</a>
+            <a href="pdf-to-markdown.html">PDF → Markdown</a>
+          </div>
+          <a href="#pdf-tools" class="nav-dropdown-viewall">View all PDF tools →</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#image-tools" class="nav-dropdown-trigger" id="nav-trigger-image" aria-expanded="false" aria-controls="nav-dropdown-image">Image tools</a>
+        <div class="nav-dropdown" id="nav-dropdown-image" hidden>
+          <div class="nav-dropdown-grid">
+            <a href="compress-image.html">Compress</a>
+            <a href="upscale-image.html">Upscale</a>
+            <a href="remove-bg.html">Remove BG</a>
+            <a href="meme-generator.html">Meme</a>
+            <a href="photo-editor.html">Photo Editor</a>
+            <a href="resize-image.html">Resize</a>
+            <a href="crop-image.html">Crop</a>
+            <a href="rotate-image.html">Rotate</a>
+            <a href="convert-image.html">Convert</a>
+            <a href="image-to-pdf.html">Image → PDF</a>
+            <a href="html-to-image.html">HTML → Image</a>
+            <a href="watermark-image.html">Watermark</a>
+            <a href="blur-area.html">Blur Area</a>
+          </div>
+          <a href="#image-tools" class="nav-dropdown-viewall">View all image tools →</a>
+        </div>
+      </div>
       <a href="#how-it-works">How it works</a>
     </nav>
-    <a href="#pdf-tools" class="btn btn-ghost">Start free</a>
-    <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="header-actions">
+      <a href="#pdf-tools" class="btn btn-ghost">Start free</a>
+      <button type="button" class="search-toggle" id="tool-search-toggle" aria-label="Search tools" aria-expanded="false" aria-controls="tool-search-bar">
+        <span aria-hidden="true">⌕</span>
+      </button>
+      <button type="button" class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
 
+<div class="tool-search-bar" id="tool-search-bar" hidden>
+  <div class="wrap tool-search-inner">
+    <span class="tool-search-icon" aria-hidden="true">⌕</span>
+    <input type="search" id="tool-search" class="tool-search-input" placeholder="Search a tool… e.g. merge, compress, resize, background" aria-label="Search tools" autocomplete="off">
+    <button type="button" id="tool-search-clear" class="tool-search-clear" hidden aria-label="Clear search">✕</button>
+  </div>
+</div>
+
 <div class="mobile-nav" id="mobile-nav" hidden>
   <nav aria-label="Mobile">
-    <a href="#pdf-tools">PDF tools</a>
-    <a href="#image-tools">Image tools</a>
     <a href="#how-it-works">How it works</a>
+    <a href="about.html">About</a>
+
+    <div class="mobile-tool-menu">
+      <p class="mobile-tool-group-label mobile-tool-group-label--coral">PDF Tools</p>
+      <div class="mobile-tool-grid">
+        <a href="merge-pdf.html">Merge</a>
+        <a href="split-pdf.html">Split</a>
+        <a href="remove-pages.html">Remove Pages</a>
+        <a href="extract-pages.html">Extract Pages</a>
+        <a href="organize-pdf.html">Organize</a>
+        <a href="scan-to-pdf.html">Scan to PDF</a>
+        <a href="compress-pdf.html">Compress</a>
+        <a href="repair-pdf.html">Repair</a>
+        <a href="ocr-pdf.html">OCR</a>
+        <a href="pdf-to-jpg.html">PDF → JPG</a>
+        <a href="html-to-pdf.html">HTML → PDF</a>
+        <a href="rotate-pdf.html">Rotate</a>
+        <a href="pdf-page-numbers.html">Page Numbers</a>
+        <a href="pdf-watermark.html">Watermark</a>
+        <a href="crop-pdf.html">Crop</a>
+        <a href="edit-pdf.html">Edit</a>
+        <a href="pdf-forms.html">Forms</a>
+        <a href="unlock-pdf.html">Unlock</a>
+        <a href="sign-pdf.html">Sign</a>
+        <a href="redact-pdf.html">Redact</a>
+        <a href="compare-pdf.html">Compare</a>
+        <a href="pdf-to-markdown.html">PDF → Markdown</a>
+        <a href="#pdf-tools" class="mobile-tool-soon">Word ↔ PDF<span>Soon</span></a>
+        <a href="#pdf-tools" class="mobile-tool-soon">PPT ↔ PDF<span>Soon</span></a>
+        <a href="#pdf-tools" class="mobile-tool-soon">Excel ↔ PDF<span>Soon</span></a>
+        <a href="#pdf-tools" class="mobile-tool-soon">PDF → PDF/A<span>Soon</span></a>
+        <a href="#pdf-tools" class="mobile-tool-soon">Protect<span>Soon</span></a>
+        <a href="#pdf-tools" class="mobile-tool-soon">AI Summarizer<span>Soon</span></a>
+        <a href="#pdf-tools" class="mobile-tool-soon">Translate<span>Soon</span></a>
+      </div>
+
+      <p class="mobile-tool-group-label mobile-tool-group-label--teal">Image Tools</p>
+      <div class="mobile-tool-grid">
+        <a href="compress-image.html">Compress</a>
+        <a href="upscale-image.html">Upscale</a>
+        <a href="remove-bg.html">Remove BG</a>
+        <a href="meme-generator.html">Meme</a>
+        <a href="photo-editor.html">Photo Editor</a>
+        <a href="resize-image.html">Resize</a>
+        <a href="crop-image.html">Crop</a>
+        <a href="rotate-image.html">Rotate</a>
+        <a href="convert-image.html">Convert</a>
+        <a href="image-to-pdf.html">Image → PDF</a>
+        <a href="html-to-image.html">HTML → Image</a>
+        <a href="watermark-image.html">Watermark</a>
+        <a href="blur-area.html">Blur Area</a>
+      </div>
+    </div>
+
     <a href="#pdf-tools" class="btn btn-coral mobile-nav-cta">Start free</a>
   </nav>
 </div>
@@ -123,17 +237,10 @@
         <a href="#pdf-tools" class="btn btn-coral">Work with a PDF</a>
         <a href="#image-tools" class="btn btn-teal">Work with an image</a>
       </div>
-      <div class="hero-chips" aria-hidden="true">
-        <span class="chip chip-coral">.PDF</span>
-        <span class="chip-arrow">→</span>
-        <span class="chip chip-teal">.JPG</span>
-        <span class="chip-sep">/</span>
-        <span class="chip chip-teal">.PNG</span>
-        <span class="chip-arrow">→</span>
-        <span class="chip chip-coral">.PDF</span>
-      </div>
     </div>
   </section>
+
+  <p class="tool-search-empty" id="tool-search-empty">No tools match your search. Try a different word — e.g. "merge", "compress", "background".</p>
 
   <section id="pdf-tools" class="tool-section tool-section--pdf">
     <div class="wrap">
@@ -531,5 +638,84 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
 <script src="app.js" defer></script>
+<script>
+(function () {
+  "use strict";
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var input = document.getElementById("tool-search");
+    var clearBtn = document.getElementById("tool-search-clear");
+    var emptyMsg = document.getElementById("tool-search-empty");
+    if (!input) return;
+
+    // Common Hindi/Hinglish terms mapped to the English words used on the cards,
+    // so typing in Hinglish still finds the right tool.
+    var synonyms = [
+      { terms: ["jodo", "jodna", "milana", "combine"], keywords: ["merge"] },
+      { terms: ["todo", "todna", "alag", "separate"], keywords: ["split"] },
+      { terms: ["hatao", "hatana", "delete", "nikalo"], keywords: ["remove", "delete"] },
+      { terms: ["chota", "size kam", "ghatao", "shrink"], keywords: ["compress", "shrink"] },
+      { terms: ["bada", "badhao", "enhance"], keywords: ["upscale"] },
+      { terms: ["ghumao", "ghuma"], keywords: ["rotate"] },
+      { terms: ["kato", "katna", "trim"], keywords: ["crop"] },
+      { terms: ["badlo", "tabdeel", "convert karo"], keywords: ["convert"] },
+      { terms: ["peeche", "bg"], keywords: ["background"] },
+      { terms: ["lock", "khulwao", "kholo"], keywords: ["unlock", "protect", "password"] },
+      { terms: ["dastakhat", "sign karo"], keywords: ["sign"] },
+      { terms: ["stamp", "chaap"], keywords: ["watermark"] },
+      { terms: ["andaza", "size"], keywords: ["resize"] },
+      { terms: ["theek karo", "fix"], keywords: ["repair"] },
+      { terms: ["photo se pdf"], keywords: ["scan"] }
+    ];
+
+    function cardMatches(card, query) {
+      if (!query) return true;
+      var text = card.textContent.toLowerCase();
+      if (text.indexOf(query) !== -1) return true;
+      for (var i = 0; i < synonyms.length; i++) {
+        var group = synonyms[i];
+        var termHit = group.terms.some(function (t) { return t.indexOf(query) !== -1 || query.indexOf(t) !== -1; });
+        if (termHit) {
+          var keywordHit = group.keywords.some(function (k) { return text.indexOf(k) !== -1; });
+          if (keywordHit) return true;
+        }
+      }
+      return false;
+    }
+
+    function runFilter() {
+      var query = input.value.trim().toLowerCase();
+      clearBtn.hidden = query.length === 0;
+
+      var grids = document.querySelectorAll(".tool-grid");
+      var totalVisible = 0;
+
+      grids.forEach(function (grid) {
+        var cards = grid.querySelectorAll(".tool-card");
+        var visibleInGrid = 0;
+        cards.forEach(function (card) {
+          var match = cardMatches(card, query);
+          card.classList.toggle("is-search-hidden", !match);
+          if (match) { visibleInGrid++; totalVisible++; }
+        });
+        grid.classList.toggle("is-search-hidden", visibleInGrid === 0);
+        var heading = grid.previousElementSibling;
+        if (heading && heading.classList.contains("subcat")) {
+          heading.classList.toggle("is-search-hidden", visibleInGrid === 0);
+        }
+      });
+
+      emptyMsg.classList.toggle("is-visible", query.length > 0 && totalVisible === 0);
+    }
+
+    input.addEventListener("input", runFilter);
+    clearBtn.addEventListener("click", function () {
+      input.value = "";
+      input.focus();
+      runFilter();
+    });
+  });
+})();
+</script>
 </body>
 </html>
