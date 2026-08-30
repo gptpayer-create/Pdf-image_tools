@@ -102,13 +102,16 @@
         <a href="redact-pdf.html">Redact</a>
         <a href="compare-pdf.html">Compare</a>
         <a href="pdf-to-markdown.html">PDF → Markdown</a>
-        <a href="index.html#pdf-tools" class="mobile-tool-soon">Word ↔ PDF<span>Soon</span></a>
-        <a href="index.html#pdf-tools" class="mobile-tool-soon">PPT ↔ PDF<span>Soon</span></a>
-        <a href="index.html#pdf-tools" class="mobile-tool-soon">Excel ↔ PDF<span>Soon</span></a>
-        <a href="index.html#pdf-tools" class="mobile-tool-soon">PDF → PDF/A<span>Soon</span></a>
-        <a href="index.html#pdf-tools" class="mobile-tool-soon">Protect<span>Soon</span></a>
-        <a href="index.html#pdf-tools" class="mobile-tool-soon">AI Summarizer<span>Soon</span></a>
-        <a href="index.html#pdf-tools" class="mobile-tool-soon">Translate<span>Soon</span></a>
+        <a href="word-to-pdf.html">Word → PDF</a>
+        <a href="pdf-to-word.html">PDF → Word</a>
+        <a href="ppt-to-pdf.html">PPT → PDF</a>
+        <a href="pdf-to-ppt.html">PDF → PPT</a>
+        <a href="excel-to-pdf.html">Excel → PDF</a>
+        <a href="pdf-to-excel.html">PDF → Excel</a>
+        <a href="pdf-to-pdfa.html">PDF → PDF/A</a>
+        <a href="protect-pdf.html">Protect</a>
+        <a href="ai-summarizer.html">AI Summarizer</a>
+        <a href="translate-pdf.html">Translate</a>
       </div>
 
       <p class="mobile-tool-group-label mobile-tool-group-label--teal">Image Tools</p>
@@ -138,13 +141,13 @@
     <div class="legal-header">
       <span class="section-tag section-tag--coral">Legal</span>
       <h1>Privacy Policy</h1>
-      <p class="legal-updated">Last updated: August 22, 2026</p>
+      <p class="legal-updated">Last updated: August 30, 2026</p>
     </div>
 
     <div class="legal-content">
 
       <div class="legal-note">
-        <p><strong>Short version:</strong> every PDF and image tool on this site runs entirely in your browser. When you use Merge PDF, Compress Image, or any other tool, your file is processed on your own device using JavaScript — it is never uploaded to gptpayer's servers, because gptpayer doesn't operate a server that receives your files at all.</p>
+        <p><strong>Short version:</strong> every PDF and image tool on this site runs entirely in your browser. When you use Merge PDF, Compress Image, or any other tool, your file is processed on your own device using JavaScript — it is never uploaded to gptpayer's servers, because gptpayer doesn't operate a server that receives your files at all. The one exception is <a href="translate-pdf.html">Translate PDF</a>, which sends the extracted text (never the original file) to a free public translation API — see Section 2 for details.</p>
       </div>
 
       <h2>1. What this policy covers</h2>
@@ -152,6 +155,7 @@
 
       <h2>2. Your files</h2>
       <p>The PDF and image tools (Merge PDF, Compress Image, Rotate PDF, and the rest of the working tools listed on the homepage) run client-side, using JavaScript libraries loaded into your browser. The file you choose is read, transformed, and offered back to you as a download — all inside your browser tab. gptpayer does not receive, store, view, or have any access to the contents of files you process with these tools.</p>
+      <p><strong>Translate PDF is the one exception.</strong> That tool still reads your PDF entirely in your browser, but it sends the extracted text, in chunks, to a free public translation API to get it translated — your original file is never sent anywhere. No other tool on the site makes any request that includes your file's content.</p>
 
       <h2>3. Analytics</h2>
       <p>This site uses Google Analytics (GA4) to understand overall traffic — things like which pages get visited, roughly where visitors are located (country/city level, not precise address), device type, and how long people stay. This is aggregated, anonymized-where-possible usage data; it is not linked to the contents of any file you process with the tools, since those never leave your browser in the first place. Google Analytics may set cookies and use your IP address to generate this data, under <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's own privacy policy</a>. This site does not ask you to create an account, log in, or submit any personal information to use the tools.</p>
@@ -164,6 +168,7 @@
       <ul>
         <li><strong>Google Fonts</strong> (fonts.googleapis.com, fonts.gstatic.com) — used to load the site's typefaces.</li>
         <li><strong>cdnjs / Cloudflare</strong> (cdnjs.cloudflare.com) — used to load the open-source pdf-lib, pdf.js, and JSZip libraries that power the tools.</li>
+        <li><strong>MyMemory Translation API</strong> (api.mymemory.translated.net) — used only by the Translate PDF tool, to translate text you've chosen to translate. No other tool contacts this or any other API.</li>
       </ul>
       <p>These requests happen the same way they would for any website that uses public CDNs. gptpayer does not control, and is not responsible for, the data-handling practices of these third parties.</p>
 

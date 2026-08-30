@@ -3,33 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Compress Image — Free, in your browser | gptpayer</title>
-<meta name="description" content="Compress a JPG, PNG, or other image to reduce file size with an adjustable quality slider — free, in your browser.">
+<title>PDF to Excel — Free, in your browser | gptpayer</title>
+<meta name="description" content="Best-effort table extraction from a PDF into a spreadsheet — free, entirely in your browser.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <meta name="theme-color" content="#14171F">
-<link rel="canonical" href="https://gptpayer.online/compress-image.html">
+<link rel="canonical" href="https://gptpayer.online/pdf-to-excel.html">
 <link rel="manifest" href="site.webmanifest">
 
 <!-- Open Graph / social preview -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="gptpayer">
-<meta property="og:title" content="Compress Image — Free, in your browser | gptpayer">
-<meta property="og:description" content="Compress a JPG, PNG, or other image to reduce file size with an adjustable quality slider — free, in your browser.">
+<meta property="og:title" content="PDF to Excel — Free, in your browser | gptpayer">
+<meta property="og:description" content="Best-effort table extraction from a PDF into a spreadsheet — free, entirely in your browser.">
 <meta property="og:image" content="https://gptpayer.online/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:url" content="https://gptpayer.online/compress-image.html">
+<meta property="og:url" content="https://gptpayer.online/pdf-to-excel.html">
 
 <!-- Twitter card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Compress Image — Free, in your browser | gptpayer">
-<meta name="twitter:description" content="Compress a JPG, PNG, or other image to reduce file size with an adjustable quality slider — free, in your browser.">
+<meta name="twitter:title" content="PDF to Excel — Free, in your browser | gptpayer">
+<meta name="twitter:description" content="Best-effort table extraction from a PDF into a spreadsheet — free, entirely in your browser.">
 <meta name="twitter:image" content="https://gptpayer.online/og-image.png">
-
-<!-- Google Search Console: uncomment and paste your verification tag once you have it
-<meta name="google-site-verification" content="REPLACE_WITH_YOUR_CODE"> -->
 
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VQ3D9RHGZD"></script>
@@ -54,11 +51,11 @@
 {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "Compress Image - gptpayer",
+  "name": "PDF to Excel - gptpayer",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any (runs in web browser)",
-  "url": "https://gptpayer.online/compress-image.html",
-  "description": "Compress a JPG, PNG, or other image to reduce file size with an adjustable quality slider \u2014 free, in your browser.",
+  "url": "https://gptpayer.online/pdf-to-excel.html",
+  "description": "Best-effort table extraction from a PDF into a spreadsheet — free, entirely in your browser.",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -76,22 +73,8 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Does this work on PNG files too?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "You can upload a PNG, but the compressed output is always saved as JPG, since JPG's lossy compression is what shrinks file size; if you need to keep transparency, use Convert Image instead."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What quality setting should I use?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "75-85% is usually a good balance between visible quality and file size for photos; go lower only if file size matters more than sharpness."
-      }
-    }
+    { "@type": "Question", "name": "Will it get every table perfectly right?", "acceptedAnswer": { "@type": "Answer", "text": "Not always. It's a best-effort heuristic based on where text sits on the page, so simple grid tables come out clean while complex or merged-cell tables may need manual tidy-up." } },
+    { "@type": "Question", "name": "What about scanned PDFs?", "acceptedAnswer": { "@type": "Answer", "text": "Run OCR PDF first — this tool needs selectable text to detect columns from." } }
   ]
 }
 </script>
@@ -100,24 +83,9 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://gptpayer.online/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Image tools",
-      "item": "https://gptpayer.online/index.html#image-tools"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Compress Image",
-      "item": "https://gptpayer.online/compress-image.html"
-    }
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gptpayer.online/" },
+    { "@type": "ListItem", "position": 2, "name": "PDF tools", "item": "https://gptpayer.online/index.html#pdf-tools" },
+    { "@type": "ListItem", "position": 3, "name": "PDF to Excel", "item": "https://gptpayer.online/pdf-to-excel.html" }
   ]
 }
 </script>
@@ -125,7 +93,7 @@
 <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
 <!-- End TrustBox script -->
 </head>
-<body class="tool-page" data-tool="compress-image">
+<body class="tool-page" data-tool="pdf-to-excel">
 
 <header class="site-header">
   <div class="wrap header-inner">
@@ -213,18 +181,18 @@
 
 <main class="tool-page-main">
   <div class="wrap">
-    <p class="breadcrumb"><a href="index.html">Home</a> / <a href="index.html#image-tools">Image tools</a> / Compress Image</p>
+    <p class="breadcrumb"><a href="index.html">Home</a> / <a href="index.html#pdf-tools">PDF tools</a> / PDF to Excel</p>
 
     <div class="tool-page-intro">
-      <span class="section-tag section-tag--teal">Image</span>
-      <p>Shrink an image's file size with an adjustable quality slider — useful for faster page loads, smaller email attachments, or staying under an upload limit. Add several images at once to batch-compress them into a single zip.</p>
+      <span class="section-tag section-tag--coral">PDF</span>
+      <p>Upload a PDF and text on each page is grouped by position into rows and columns, one sheet per page. This works best on simple grid-style tables — free-form text won't line up into neat columns.</p>
     </div>
 
     <div class="tool-widget-wrap">
       <div class="modal-overlay" id="modal-overlay" hidden>
         <div class="modal">
           <button type="button" class="modal-close" id="modal-close" aria-label="Close">✕</button>
-          <h1 class="modal-title" id="modal-title">Compress Image</h1>
+          <h1 class="modal-title" id="modal-title">PDF to Excel</h1>
           <p class="modal-sub" id="modal-sub"></p>
 
           <div class="dropzone" id="dropzone">
@@ -234,6 +202,7 @@
 
           <div class="file-list" id="file-list"></div>
           <div class="tool-options" id="tool-options"></div>
+          <div class="tool-dynamic" id="tool-dynamic"></div>
           <button type="button" class="btn btn-coral modal-run" id="modal-run" disabled>Choose a file first</button>
           <div class="modal-status" id="modal-status" role="status" aria-live="polite"></div>
           <div class="modal-result" id="modal-result"></div>
@@ -242,32 +211,32 @@
     </div>
 
     <section class="tool-seo-content">
-      <h2>How to use Compress Image</h2>
+      <h2>How to use PDF to Excel</h2>
       <ol>
-        <li>Upload the image you want to compress.</li>
-        <li>Drag the quality slider — lower means smaller file, higher means better quality.</li>
-        <li>Tap Run to download the compressed JPG.</li>
+        <li>Add a PDF file.</li>
+        <li>Tap Run.</li>
+        <li>Download the .xlsx and check the column alignment.</li>
       </ol>
 
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
-          <summary>Does this work on PNG files too?</summary>
-          <p>You can upload a PNG, but the compressed output is always saved as JPG, since JPG's lossy compression is what shrinks file size; if you need to keep transparency, use Convert Image instead.</p>
+          <summary>Will it get every table perfectly right?</summary>
+          <p>Not always. It's a best-effort heuristic based on where text sits on the page, so simple grid tables come out clean while complex or merged-cell tables may need manual tidy-up.</p>
         </details>
         <details>
-          <summary>What quality setting should I use?</summary>
-          <p>75-85% is usually a good balance between visible quality and file size for photos; go lower only if file size matters more than sharpness.</p>
+          <summary>What about scanned PDFs?</summary>
+          <p>Run OCR PDF first — this tool needs selectable text to detect columns from.</p>
         </details>
       </div>
     </section>
 
     <section class="related-tools">
-      <h2>More image tools</h2>
+      <h2>More pdf tools</h2>
       <div class="related-grid">
-        <a href="resize-image.html" class="related-card"><h3>Resize Image</h3><p>Resize an image to exact pixel dimensions, free, with an option to…</p></a>
-        <a href="convert-image.html" class="related-card"><h3>Convert Image</h3><p>Convert an image between JPG, PNG, and WEBP formats, free, right in…</p></a>
-        <a href="crop-image.html" class="related-card"><h3>Crop Image</h3><p>Crop an image to an exact pixel box, free, using manual…</p></a>
+        <a href="excel-to-pdf.html" class="related-card"><h3>Excel to PDF</h3><p>Convert an .xlsx spreadsheet into a PDF — free, entirely in your browser…</p></a>
+        <a href="pdf-to-word.html" class="related-card"><h3>PDF to Word</h3><p>Pull the text out of a PDF into an editable .docx — free, in your browser…</p></a>
+        <a href="ocr-pdf.html" class="related-card"><h3>OCR PDF</h3><p>Recognize text on scanned pages, on-device, and export as Markdown…</p></a>
       </div>
     </section>
   </div>
@@ -293,7 +262,8 @@
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
 <script src="app.js" defer></script>
 </body>
 </html>

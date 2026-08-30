@@ -876,15 +876,14 @@ h1{font-size:19px;} h2{font-size:14px;margin-top:34px;border-bottom:1px solid #d
 
   /* ---------------- HTML to PDF / HTML to Image ---------------- */
 
-  async function renderHtmlFileToCanvas(file, widthPx) {
-    const text = await file.text();
+  async function renderHtmlStringToCanvas(htmlString, widthPx) {
     const container = document.createElement("div");
     container.style.position = "fixed";
     container.style.left = "-99999px";
     container.style.top = "0";
     container.style.width = widthPx + "px";
     container.style.background = "#ffffff";
-    container.innerHTML = text;
+    container.innerHTML = htmlString;
     document.body.appendChild(container);
     try {
       await new Promise((r) => setTimeout(r, 60));
@@ -894,6 +893,11 @@ h1{font-size:19px;} h2{font-size:14px;margin-top:34px;border-bottom:1px solid #d
     }
   }
 
+  async function renderHtmlFileToCanvas(file, widthPx) {
+    const text = await file.text();
+    return renderHtmlStringToCanvas(text, widthPx);
+  }
+
   async function htmlToImage(files) {
     const file = files[0];
     const canvas = await renderHtmlFileToCanvas(file, 900);
@@ -901,9 +905,10 @@ h1{font-size:19px;} h2{font-size:14px;margin-top:34px;border-bottom:1px solid #d
     return [{ name: file.name.replace(/\.html?$/i, "") + ".png", blob }];
   }
 
-  async function htmlToPdf(files) {
-    const file = files[0];
-    const canvas = await renderHtmlFileToCanvas(file, 794);
+  // Slices a tall canvas into A4-ish pages and assembles a PDF from JPG
+  // page images via pdf-lib. Shared by HTML→PDF, Word→PDF and Excel→PDF,
+  // all of which render their source into an HTML/canvas first.
+  async function canvasToPagedPdfBytes(canvas) {
     const { PDFDocument } = PDFLib;
     const out = await PDFDocument.create();
     const pageWidthPt = 595.28;
@@ -924,8 +929,499 @@ h1{font-size:19px;} h2{font-size:14px;margin-top:34px;border-bottom:1px solid #d
       page.drawImage(embedded, { x: 0, y: 0, width: pageWidthPt, height: sliceHeight * scaleFactor });
       y += sliceHeight;
     }
-    const outBytes = await out.save();
+    return out.save();
+  }
+
+  async function htmlToPdf(files) {
+    const file = files[0];
+    const canvas = await renderHtmlFileToCanvas(file, 794);
+    const outBytes = await canvasToPagedPdfBytes(canvas);
     return [{ name: file.name.replace(/\.html?$/i, "") + ".pdf", blob: new Blob([outBytes], { type: "application/pdf" }) }];
+  }
+
+  /* ---------------- Word to PDF (mammoth.js -> HTML -> canvas -> PDF) ---------------- */
+
+  const DOC_HTML_STYLE = `
+    <style>
+      body,.docwrap{font-family:Georgia,'Times New Roman',serif;color:#1a1a1a;line-height:1.5;font-size:15px;}
+      .docwrap{padding:48px 56px;background:#fff;}
+      .docwrap h1{font-size:26px;margin:0 0 14px;}
+      .docwrap h2{font-size:20px;margin:22px 0 10px;}
+      .docwrap h3{font-size:17px;margin:18px 0 8px;}
+      .docwrap p{margin:0 0 12px;}
+      .docwrap table{border-collapse:collapse;width:100%;margin:12px 0;}
+      .docwrap td,.docwrap th{border:1px solid #999;padding:6px 8px;font-size:13px;}
+      .docwrap img{max-width:100%;}
+      .docwrap ul,.docwrap ol{margin:0 0 12px;padding-left:24px;}
+    </style>`;
+
+  async function wordToPdf(files, opts, onProgress) {
+    return batchPdfOutputs(files, onProgress, "converted-pdfs", async (file) => {
+      const arrayBuffer = await file.arrayBuffer();
+      const result = await mammoth.convertToHtml({ arrayBuffer });
+      const html = DOC_HTML_STYLE + `<div class="docwrap">${result.value}</div>`;
+      const canvas = await renderHtmlStringToCanvas(html, 794);
+      const outBytes = await canvasToPagedPdfBytes(canvas);
+      return { name: file.name.replace(/\.docx?$/i, "") + ".pdf", blob: new Blob([outBytes], { type: "application/pdf" }) };
+    });
+  }
+
+  /* ---------------- Excel to PDF (SheetJS -> HTML tables -> canvas -> PDF) ---------------- */
+
+  const XLSX_HTML_STYLE = `
+    <style>
+      body,.xlwrap{font-family:'Work Sans',Arial,sans-serif;color:#1a1a1a;}
+      .xlwrap{padding:32px;background:#fff;}
+      .xlwrap h2{font-size:16px;margin:20px 0 8px;color:#333;}
+      .xlwrap table{border-collapse:collapse;width:100%;margin-bottom:10px;}
+      .xlwrap td,.xlwrap th{border:1px solid #ccc;padding:4px 7px;font-size:11px;white-space:nowrap;}
+    </style>`;
+
+  async function excelToPdf(files, opts, onProgress) {
+    return batchPdfOutputs(files, onProgress, "converted-pdfs", async (file) => {
+      const arrayBuffer = await file.arrayBuffer();
+      const wb = XLSX.read(arrayBuffer, { type: "array" });
+      let html = XLSX_HTML_STYLE + '<div class="xlwrap">';
+      wb.SheetNames.forEach((name) => {
+        const sheet = wb.Sheets[name];
+        html += `<h2>${escapeHtml(name)}</h2>` + XLSX.utils.sheet_to_html(sheet, { header: "", footer: "" });
+      });
+      html += "</div>";
+      const canvas = await renderHtmlStringToCanvas(html, 794);
+      const outBytes = await canvasToPagedPdfBytes(canvas);
+      return { name: file.name.replace(/\.xlsx?$/i, "") + ".pdf", blob: new Blob([outBytes], { type: "application/pdf" }) };
+    });
+  }
+
+  /* ---------------- PDF to Excel (pdf.js text positions -> rows/cols -> SheetJS) ---------------- */
+
+  async function pdfToExcel(files) {
+    const file = files[0];
+    const bytes = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: bytes }).promise;
+    const wb = XLSX.utils.book_new();
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const content = await page.getTextContent();
+      // Cluster items into rows by y, then into columns by x-gaps within a row.
+      const items = content.items.map((it) => ({
+        text: it.str, x: it.transform[4], y: Math.round(it.transform[5]),
+      })).filter((it) => it.text.trim() !== "");
+      items.sort((a, b) => b.y - a.y || a.x - b.x);
+      const rows = [];
+      let currentY = null, row = [];
+      items.forEach((it) => {
+        if (currentY === null || Math.abs(it.y - currentY) > 4) {
+          if (row.length) rows.push(row);
+          row = [];
+          currentY = it.y;
+        }
+        row.push(it);
+      });
+      if (row.length) rows.push(row);
+      const grid = rows.map((r) => {
+        r.sort((a, b) => a.x - b.x);
+        const cells = [];
+        let cell = "", lastX = null;
+        r.forEach((it) => {
+          if (lastX !== null && it.x - lastX > 12) { cells.push(cell.trim()); cell = ""; }
+          cell += (cell ? " " : "") + it.text;
+          lastX = it.x + it.text.length * 4;
+        });
+        if (cell) cells.push(cell.trim());
+        return cells;
+      });
+      const ws = XLSX.utils.aoa_to_sheet(grid);
+      XLSX.utils.book_append_sheet(wb, ws, `Page ${i}`.slice(0, 31));
+    }
+    const wbBytes = XLSX.write(wb, { type: "array", bookType: "xlsx" });
+    return [{ name: file.name.replace(/\.pdf$/i, "") + ".xlsx", blob: new Blob([wbBytes], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }) }];
+  }
+
+  /* ---------------- PDF to Word (pdf.js text lines -> docx.js) ---------------- */
+
+  async function pdfToWord(files) {
+    const file = files[0];
+    const bytes = await file.arrayBuffer();
+    const pages = await extractPdfLines(bytes);
+    const { Document, Packer, Paragraph, TextRun, PageBreak } = docx;
+    const children = [];
+    pages.forEach((rows, pageIdx) => {
+      rows.forEach((r) => {
+        const t = r.text.trim();
+        if (t) children.push(new Paragraph({ children: [new TextRun(t)] }));
+      });
+      if (pageIdx < pages.length - 1) {
+        children.push(new Paragraph({ children: [new PageBreak()] }));
+      }
+    });
+    if (!children.length) children.push(new Paragraph(""));
+    const doc = new Document({ sections: [{ children }] });
+    const blob = await Packer.toBlob(doc);
+    return [{ name: file.name.replace(/\.pdf$/i, "") + ".docx", blob }];
+  }
+
+  /* ---------------- PowerPoint to PDF (JSZip -> slide text -> canvas -> PDF pages) ---------------- */
+
+  async function extractPptxSlides(file) {
+    const zip = await JSZip.loadAsync(file);
+    const slideFiles = Object.keys(zip.files)
+      .filter((n) => /^ppt\/slides\/slide\d+\.xml$/.test(n))
+      .sort((a, b) => {
+        const na = parseInt(a.match(/slide(\d+)\.xml/)[1], 10);
+        const nb = parseInt(b.match(/slide(\d+)\.xml/)[1], 10);
+        return na - nb;
+      });
+    const slides = [];
+    for (const name of slideFiles) {
+      const xml = await zip.files[name].async("string");
+      // Each <p:sp> shape becomes a text block; each <a:p> inside is a paragraph/bullet.
+      const shapeBlocks = xml.split(/<p:sp>/).slice(1);
+      const paras = [];
+      (shapeBlocks.length ? shapeBlocks : [xml]).forEach((block) => {
+        const pMatches = block.match(/<a:p>[\s\S]*?<\/a:p>/g) || [];
+        pMatches.forEach((p) => {
+          const runs = p.match(/<a:t>([\s\S]*?)<\/a:t>/g) || [];
+          const text = runs.map((r) => r.replace(/<[^>]+>/g, "")
+            .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&apos;/g, "'")).join("");
+          if (text.trim()) paras.push(text.trim());
+        });
+      });
+      slides.push(paras);
+    }
+    return slides;
+  }
+
+  async function pptToPdf(files, opts, onProgress) {
+    return batchPdfOutputs(files, onProgress, "converted-pdfs", async (file) => {
+      const slides = await extractPptxSlides(file);
+      const { PDFDocument } = PDFLib;
+      const out = await PDFDocument.create();
+      const pageWidthPt = 720, pageHeightPt = 405; // 16:9
+      for (let i = 0; i < slides.length; i++) {
+        if (onProgress) onProgress(i, slides.length, `Rendering slide ${i + 1} of ${slides.length}…`);
+        const paras = slides[i];
+        const title = paras[0] || `Slide ${i + 1}`;
+        const bodyItems = paras.slice(1).map((t) => `<li>${escapeHtml(t)}</li>`).join("");
+        const html = `<div style="width:1280px;height:720px;box-sizing:border-box;padding:70px 90px;background:#fff;font-family:'Work Sans',Arial,sans-serif;">
+          <h1 style="font-size:44px;margin:0 0 30px;color:#14171F;">${escapeHtml(title)}</h1>
+          <ul style="font-size:26px;line-height:1.6;color:#333;">${bodyItems}</ul>
+        </div>`;
+        const canvas = await renderHtmlStringToCanvas(html, 1280);
+        const jpgBlob = await canvasToBlob(canvas, "image/jpeg", 0.9);
+        const jpgBytes = new Uint8Array(await jpgBlob.arrayBuffer());
+        const embedded = await out.embedJpg(jpgBytes);
+        const page = out.addPage([pageWidthPt, pageHeightPt]);
+        page.drawImage(embedded, { x: 0, y: 0, width: pageWidthPt, height: pageHeightPt });
+      }
+      if (!slides.length) out.addPage([pageWidthPt, pageHeightPt]);
+      const outBytes = await out.save();
+      return { name: file.name.replace(/\.pptx?$/i, "") + ".pdf", blob: new Blob([outBytes], { type: "application/pdf" }) };
+    });
+  }
+
+  /* ---------------- PDF to PowerPoint (pdf.js rasterize pages -> pptxgenjs images) ---------------- */
+
+  async function pdfToPpt(files, opts, onProgress) {
+    const file = files[0];
+    const bytes = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: bytes }).promise;
+    const pptx = new PptxGenJS();
+    pptx.defineLayout({ name: "GPTPAYER", width: 10, height: 7.5 });
+    pptx.layout = "GPTPAYER";
+    for (let i = 1; i <= pdf.numPages; i++) {
+      if (onProgress) onProgress(i - 1, pdf.numPages, `Rendering page ${i} of ${pdf.numPages}…`);
+      const page = await pdf.getPage(i);
+      const viewport = page.getViewport({ scale: 2 });
+      const canvas = document.createElement("canvas");
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      await page.render({ canvasContext: canvas.getContext("2d"), viewport }).promise;
+      const dataUrl = canvas.toDataURL("image/jpeg", 0.92);
+      const aspect = viewport.width / viewport.height;
+      const layoutAspect = 10 / 7.5;
+      let w = 10, h = 7.5, x = 0, y = 0;
+      if (aspect > layoutAspect) { h = 10 / aspect; y = (7.5 - h) / 2; }
+      else { w = 7.5 * aspect; x = (10 - w) / 2; }
+      const slide = pptx.addSlide();
+      slide.addImage({ data: dataUrl, x, y, w, h });
+    }
+    if (onProgress) onProgress(pdf.numPages, pdf.numPages, "Finishing…");
+    const blob = await pptx.write({ outputType: "blob" });
+    return [{ name: file.name.replace(/\.pdf$/i, "") + ".pptx", blob }];
+  }
+
+  /* ---------------- PDF to PDF/A (best-effort metadata tagging via pdf-lib) ---------------- */
+
+  async function pdfToPdfA(files, opts, onProgress) {
+    const { PDFName, PDFHexString } = PDFLib;
+    return batchPdfOutputs(files, onProgress, "pdfa-pdfs", async (file) => {
+      const bytes = await file.arrayBuffer();
+      const { PDFDocument } = PDFLib;
+      const doc = await PDFDocument.load(bytes);
+      const title = (doc.getTitle && doc.getTitle()) || file.name.replace(/\.pdf$/i, "");
+      doc.setProducer("gptpayer");
+      doc.setCreator("gptpayer");
+      if (!doc.getTitle || !doc.getTitle()) doc.setTitle(title);
+      const now = new Date();
+      const xmp = `<?xpacket begin="\uFEFF" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/">
+ <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <rdf:Description rdf:about="" xmlns:pdfaid="http://www.aiim.org/pdfa/ns/id/">
+   <pdfaid:part>2</pdfaid:part>
+   <pdfaid:conformance>B</pdfaid:conformance>
+  </rdf:Description>
+  <rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/">
+   <dc:title><rdf:Alt><rdf:li xml:lang="x-default">${escapeHtml(title)}</rdf:li></rdf:Alt></dc:title>
+  </rdf:Description>
+  <rdf:Description rdf:about="" xmlns:xmp="http://ns.adobe.com/xap/1.0/">
+   <xmp:CreateDate>${now.toISOString()}</xmp:CreateDate>
+  </rdf:Description>
+ </rdf:RDF>
+</x:xmpmeta>
+<?xpacket end="w"?>`;
+      const xmpBytes = new TextEncoder().encode(xmp);
+      const metadataStream = doc.context.stream(xmpBytes, { Type: "Metadata", Subtype: "XML" });
+      const metadataRef = doc.context.register(metadataStream);
+      doc.catalog.set(PDFName.of("Metadata"), metadataRef);
+      const outBytes = await doc.save();
+      return { name: file.name.replace(/\.pdf$/i, "") + "-pdfa.pdf", blob: new Blob([outBytes], { type: "application/pdf" }) };
+    });
+  }
+
+  /* ---------------- Protect PDF (real Standard Security Handler, RC4-40, V1 R2) ----------------
+     This implements PDF spec Algorithms 3.1-3.4 from scratch (MD5 + RC4, both
+     public, universally-documented primitives) so the output opens with a real
+     password in Acrobat, Preview, and other readers — not a fake lock screen. */
+
+  const MD5_S = [7,12,17,22,7,12,17,22,7,12,17,22,7,12,17,22,
+    5,9,14,20,5,9,14,20,5,9,14,20,5,9,14,20,
+    4,11,16,23,4,11,16,23,4,11,16,23,4,11,16,23,
+    6,10,15,21,6,10,15,21,6,10,15,21,6,10,15,21];
+  const MD5_K = (() => { const k = new Int32Array(64); for (let i = 0; i < 64; i++) k[i] = (Math.floor(Math.abs(Math.sin(i + 1)) * 4294967296)) | 0; return k; })();
+
+  function md5(bytes) {
+    function rotl(x, c) { return (x << c) | (x >>> (32 - c)); }
+    let a0 = 0x67452301, b0 = 0xefcdab89, c0 = 0x98badcfe, d0 = 0x10325476;
+    const origLenBits = bytes.length * 8;
+    const msg = Array.from(bytes);
+    msg.push(0x80);
+    while (msg.length % 64 !== 56) msg.push(0);
+    for (let i = 0; i < 8; i++) msg.push(Math.floor(origLenBits / Math.pow(2, 8 * i)) & 0xff);
+    for (let chunkStart = 0; chunkStart < msg.length; chunkStart += 64) {
+      const M = new Int32Array(16);
+      for (let i = 0; i < 16; i++) {
+        M[i] = msg[chunkStart + i * 4] | (msg[chunkStart + i * 4 + 1] << 8) | (msg[chunkStart + i * 4 + 2] << 16) | (msg[chunkStart + i * 4 + 3] << 24);
+      }
+      let A = a0, B = b0, C = c0, D = d0;
+      for (let i = 0; i < 64; i++) {
+        let F, g;
+        if (i < 16) { F = (B & C) | (~B & D); g = i; }
+        else if (i < 32) { F = (D & B) | (~D & C); g = (5 * i + 1) % 16; }
+        else if (i < 48) { F = B ^ C ^ D; g = (3 * i + 5) % 16; }
+        else { F = C ^ (B | ~D); g = (7 * i) % 16; }
+        F = (F + A + MD5_K[i] + M[g]) | 0;
+        A = D; D = C; C = B;
+        B = (B + rotl(F, MD5_S[i])) | 0;
+      }
+      a0 = (a0 + A) | 0; b0 = (b0 + B) | 0; c0 = (c0 + C) | 0; d0 = (d0 + D) | 0;
+    }
+    const out = new Uint8Array(16);
+    [a0, b0, c0, d0].forEach((v, i) => {
+      out[i * 4] = v & 0xff; out[i * 4 + 1] = (v >>> 8) & 0xff; out[i * 4 + 2] = (v >>> 16) & 0xff; out[i * 4 + 3] = (v >>> 24) & 0xff;
+    });
+    return out;
+  }
+
+  function rc4(keyBytes, dataBytes) {
+    const S = new Uint8Array(256);
+    for (let i = 0; i < 256; i++) S[i] = i;
+    let j = 0;
+    for (let i = 0; i < 256; i++) {
+      j = (j + S[i] + keyBytes[i % keyBytes.length]) & 0xff;
+      [S[i], S[j]] = [S[j], S[i]];
+    }
+    const out = new Uint8Array(dataBytes.length);
+    let i = 0; j = 0;
+    for (let k = 0; k < dataBytes.length; k++) {
+      i = (i + 1) & 0xff;
+      j = (j + S[i]) & 0xff;
+      [S[i], S[j]] = [S[j], S[i]];
+      out[k] = dataBytes[k] ^ S[(S[i] + S[j]) & 0xff];
+    }
+    return out;
+  }
+
+  const RC4_PAD = new Uint8Array([
+    0x28,0xBF,0x4E,0x5E,0x4E,0x75,0x8A,0x41,0x64,0x00,0x4E,0x56,0xFF,0xFA,0x01,0x08,
+    0x2E,0x2E,0x00,0xB6,0xD0,0x68,0x3E,0x80,0x2F,0x0C,0xA9,0xFE,0x64,0x53,0x69,0x7A,
+  ]);
+
+  function padPassword(pw) {
+    const bytes = new TextEncoder().encode(pw || "").slice(0, 32);
+    const out = new Uint8Array(32);
+    out.set(bytes, 0);
+    out.set(RC4_PAD.subarray(0, 32 - bytes.length), bytes.length);
+    return out;
+  }
+  function bytesToHex(u8) { return Array.from(u8).map((b) => b.toString(16).padStart(2, "0")).join(""); }
+  function computeOwnerEntry(ownerPw, userPw) {
+    const key = md5(padPassword(ownerPw || userPw)).subarray(0, 5);
+    return rc4(key, padPassword(userPw));
+  }
+  function computeFileKey(userPw, ownerEntryBytes, permissions, idBytes) {
+    const padded = padPassword(userPw);
+    const permBytes = new Uint8Array(4);
+    const p = permissions | 0;
+    permBytes[0] = p & 0xff; permBytes[1] = (p >>> 8) & 0xff; permBytes[2] = (p >>> 16) & 0xff; permBytes[3] = (p >>> 24) & 0xff;
+    const input = new Uint8Array(padded.length + ownerEntryBytes.length + 4 + idBytes.length);
+    let off = 0;
+    input.set(padded, off); off += padded.length;
+    input.set(ownerEntryBytes, off); off += ownerEntryBytes.length;
+    input.set(permBytes, off); off += 4;
+    input.set(idBytes, off);
+    return md5(input).subarray(0, 5);
+  }
+  function computeUserEntry(fileKey) { return rc4(fileKey, RC4_PAD); }
+  function objectKey(fileKey, objNum, genNum) {
+    const extra = new Uint8Array(fileKey.length + 5);
+    extra.set(fileKey, 0);
+    extra[fileKey.length] = objNum & 0xff;
+    extra[fileKey.length + 1] = (objNum >>> 8) & 0xff;
+    extra[fileKey.length + 2] = (objNum >>> 16) & 0xff;
+    extra[fileKey.length + 3] = genNum & 0xff;
+    extra[fileKey.length + 4] = (genNum >>> 8) & 0xff;
+    return md5(extra).subarray(0, Math.min(fileKey.length + 5, 16));
+  }
+
+  function encryptStringsAndStreams(obj, key) {
+    const { PDFArray, PDFDict, PDFRawStream, PDFString, PDFHexString } = PDFLib;
+    if (obj instanceof PDFArray) {
+      for (let i = 0; i < obj.size(); i++) {
+        const item = obj.get(i);
+        if (item instanceof PDFString || item instanceof PDFHexString) {
+          obj.set(i, PDFHexString.of(bytesToHex(rc4(key, item.asBytes()))));
+        } else {
+          encryptStringsAndStreams(item, key);
+        }
+      }
+    } else if (obj instanceof PDFRawStream) {
+      encryptStringsAndStreams(obj.dict, key);
+      obj.contents = rc4(key, obj.contents);
+    } else if (obj instanceof PDFDict) {
+      for (const [k, v] of obj.entries()) {
+        if (v instanceof PDFString || v instanceof PDFHexString) {
+          obj.set(k, PDFHexString.of(bytesToHex(rc4(key, v.asBytes()))));
+        } else {
+          encryptStringsAndStreams(v, key);
+        }
+      }
+    }
+  }
+
+  async function protectPdf(files, opts, onProgress) {
+    const { PDFDocument, PDFName, PDFHexString } = PDFLib;
+    const userPassword = opts.password || "";
+    if (!userPassword) throw new Error("Enter a password to protect the PDF with.");
+    return batchPdfOutputs(files, onProgress, "protected-pdfs", async (file) => {
+      const bytes = await file.arrayBuffer();
+      const doc = await PDFDocument.load(bytes, { updateMetadata: false });
+      const context = doc.context;
+      const idBytes = new Uint8Array(16);
+      crypto.getRandomValues(idBytes);
+      const idHex = PDFHexString.of(bytesToHex(idBytes));
+      context.trailerInfo.ID = context.obj([idHex, idHex]);
+      const permissions = -3904;
+      const ownerEntry = computeOwnerEntry("", userPassword);
+      const fileKey = computeFileKey(userPassword, ownerEntry, permissions, idBytes);
+      const userEntry = computeUserEntry(fileKey);
+      for (const [ref, obj] of context.enumerateIndirectObjects()) {
+        encryptStringsAndStreams(obj, objectKey(fileKey, ref.objectNumber, ref.generationNumber));
+      }
+      const encryptDict = context.obj({
+        Filter: PDFName.of("Standard"), V: 1, R: 2,
+        O: PDFHexString.of(bytesToHex(ownerEntry)),
+        U: PDFHexString.of(bytesToHex(userEntry)),
+        P: permissions,
+      });
+      context.trailerInfo.Encrypt = context.register(encryptDict);
+      const outBytes = await doc.save({ useObjectStreams: false });
+      return { name: file.name.replace(/\.pdf$/i, "") + "-protected.pdf", blob: new Blob([outBytes], { type: "application/pdf" }) };
+    });
+  }
+
+  /* ---------------- AI Summarizer (on-device extractive summary, no cloud model) ----------------
+     Scores sentences by word-frequency (a classic TextRank-style heuristic) and
+     keeps the highest-scoring ones in their original order. It's a real,
+     fully-offline algorithm — not a cloud LLM — and the tool says so. */
+
+  const STOPWORDS = new Set("a an the and or but if is are was were be been being to of in on for with as by at from this that these those it its it's he she they them his her their we you your i not no do does did can will would should could than then so such very just also".split(" "));
+
+  function summarizeText(text, sentenceCount) {
+    const sentences = text.replace(/\s+/g, " ").match(/[^.!?]+[.!?]+(\s|$)/g) || [text];
+    const words = {};
+    sentences.forEach((s) => {
+      s.toLowerCase().match(/[a-z']{3,}/g)?.forEach((w) => {
+        if (!STOPWORDS.has(w)) words[w] = (words[w] || 0) + 1;
+      });
+    });
+    const scored = sentences.map((s, i) => {
+      const tokens = s.toLowerCase().match(/[a-z']{3,}/g) || [];
+      const score = tokens.reduce((sum, w) => sum + (words[w] || 0), 0) / Math.max(1, tokens.length);
+      return { i, s: s.trim(), score };
+    });
+    const top = scored.slice().sort((a, b) => b.score - a.score).slice(0, sentenceCount);
+    top.sort((a, b) => a.i - b.i);
+    return top.map((x) => x.s).join(" ");
+  }
+
+  async function pdfSummarize(files, opts) {
+    const file = files[0];
+    const bytes = await file.arrayBuffer();
+    const pages = await extractPdfLines(bytes);
+    const fullText = pages.map((rows) => rows.map((r) => r.text).join(" ")).join(" ");
+    if (!fullText.trim()) throw new Error("Couldn't find any extractable text in this PDF (it may be a scan — try OCR PDF first).");
+    const density = opts.length === "short" ? 6 : opts.length === "long" ? 20 : 12;
+    const totalSentences = (fullText.match(/[^.!?]+[.!?]+/g) || []).length || 1;
+    const count = Math.max(3, Math.min(totalSentences, Math.round(totalSentences / density) + 3));
+    const summary = summarizeText(fullText, count);
+    const md = `# Summary of ${file.name}\n\n_On-device extractive summary — key sentences pulled from the document, not written by an AI model._\n\n${summary}\n`;
+    return [{ name: file.name.replace(/\.pdf$/i, "") + "-summary.md", blob: new Blob([md], { type: "text/markdown" }) }];
+  }
+
+  /* ---------------- Translate PDF (extracts text, translates via a free public
+     translation API in the browser, outputs a translated text file). Unlike
+     every other tool here this one needs the network — it says so up front. ---------------- */
+
+  async function translateChunk(text, target) {
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${encodeURIComponent(target)}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Translation service unavailable right now.");
+    const data = await res.json();
+    return (data && data.responseData && data.responseData.translatedText) || text;
+  }
+
+  async function pdfTranslate(files, opts, onProgress) {
+    const file = files[0];
+    const target = opts.lang || "es";
+    const bytes = await file.arrayBuffer();
+    const pages = await extractPdfLines(bytes);
+    const paragraphs = pages.map((rows) => rows.map((r) => r.text).join(" ").trim()).filter(Boolean);
+    if (!paragraphs.length) throw new Error("Couldn't find any extractable text in this PDF.");
+    const chunks = [];
+    let buf = "";
+    paragraphs.forEach((p) => {
+      if ((buf + " " + p).length > 450) { chunks.push(buf); buf = p; }
+      else buf = buf ? buf + " " + p : p;
+    });
+    if (buf) chunks.push(buf);
+    const translated = [];
+    for (let i = 0; i < chunks.length; i++) {
+      if (onProgress) onProgress(i, chunks.length, `Translating part ${i + 1} of ${chunks.length}…`);
+      translated.push(await translateChunk(chunks[i], target));
+    }
+    const md = `# Translated: ${file.name}\n\n_Machine-translated via a free public translation API — proper nouns and formatting may need a check._\n\n` + translated.join("\n\n");
+    return [{ name: file.name.replace(/\.pdf$/i, "") + `-${target}.md`, blob: new Blob([md], { type: "text/markdown" }) }];
   }
 
   /* ---------------- Edit PDF (text / rectangle / line stamp) ---------------- */
@@ -1605,8 +2101,18 @@ h1{font-size:19px;} h2{font-size:14px;margin-top:34px;border-bottom:1px solid #d
       run: imageRemoveBg,
     },
 
-    "pdf-to-word": { title: "PDF to Word", sub: "This needs a document-conversion engine we don't run in the browser yet.", comingSoon: true },
-    "protect-pdf": { title: "Protect PDF", sub: "Real, reader-compatible password encryption needs a crypto engine we haven't finished testing yet — we'd rather ship it right than ship a password that doesn't actually hold.", comingSoon: true },
+    "pdf-to-word": {
+      title: "PDF to Word", sub: "Pulls the text out of a PDF into an editable .docx. Text only — layout, images and columns aren't rebuilt.",
+      accept: "application/pdf", multiple: false, minFiles: 1,
+      run: pdfToWord,
+    },
+    "protect-pdf": {
+      title: "Protect PDF", sub: "Adds a real, reader-compatible password using the standard PDF encryption spec (RC4-40, opens in Acrobat, Preview, etc).",
+      accept: "application/pdf", multiple: true, minFiles: 1,
+      options: () => `<label class="opt-label">Password <input type="password" id="opt-password" class="opt-input" placeholder="Choose a password" autocomplete="new-password"></label>`,
+      readOpts: () => ({ password: $("#opt-password").value }),
+      run: protectPdf,
+    },
     "ocr-pdf": {
       title: "OCR PDF", sub: "Recognizes text on scanned pages using an on-device AI model (downloads once, then stays local) and exports it as Markdown.",
       accept: "application/pdf", multiple: false, minFiles: 1,
@@ -1626,14 +2132,71 @@ h1{font-size:19px;} h2{font-size:14px;margin-top:34px;border-bottom:1px solid #d
       readOpts: () => ({ lang: $("#opt-lang").value }),
       run: pdfOcr,
     },
-    "word-to-pdf": { title: "Word to PDF", sub: "Rendering .docx layout accurately needs a conversion engine we don't run in the browser yet.", comingSoon: true },
-    "ppt-to-pdf": { title: "PowerPoint to PDF", sub: "Same story as Word to PDF — needs a real conversion engine.", comingSoon: true },
-    "pdf-to-ppt": { title: "PDF to PowerPoint", sub: "Rebuilding editable slides from a PDF needs a real conversion engine.", comingSoon: true },
-    "excel-to-pdf": { title: "Excel to PDF", sub: "Needs a spreadsheet-rendering engine we haven't wired in yet.", comingSoon: true },
-    "pdf-to-excel": { title: "PDF to Excel", sub: "Reliable table extraction is on the roadmap.", comingSoon: true },
-    "pdf-to-pdfa": { title: "PDF to PDF/A", sub: "True archival-format conformance (embedded ICC profiles, XMP metadata) is on the roadmap.", comingSoon: true },
-    "ai-summarizer": { title: "AI Summarizer", sub: "This needs a connected AI model — not something we run fully offline in your browser.", comingSoon: true },
-    "translate-pdf": { title: "Translate PDF", sub: "Needs a connected translation model.", comingSoon: true },
+    "word-to-pdf": {
+      title: "Word to PDF", sub: "Turns a .docx into a PDF, right in your browser. Add several to convert them all at once.",
+      accept: ".doc,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document", multiple: true, minFiles: 1,
+      run: wordToPdf,
+    },
+    "ppt-to-pdf": {
+      title: "PowerPoint to PDF", sub: "Rebuilds each slide's text as a PDF page. Text only for this first pass — images and complex layouts aren't carried over yet.",
+      accept: ".ppt,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation", multiple: true, minFiles: 1,
+      run: pptToPdf,
+    },
+    "pdf-to-ppt": {
+      title: "PDF to PowerPoint", sub: "Turns each PDF page into a full-bleed image on its own slide — looks exactly like the PDF, but slide content isn't separately editable.",
+      accept: "application/pdf", multiple: false, minFiles: 1,
+      run: pdfToPpt,
+    },
+    "excel-to-pdf": {
+      title: "Excel to PDF", sub: "Turns each sheet into a PDF table. Add several spreadsheets to convert them all at once.",
+      accept: ".xls,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", multiple: true, minFiles: 1,
+      run: excelToPdf,
+    },
+    "pdf-to-excel": {
+      title: "PDF to Excel", sub: "Best-effort table extraction — groups text by position into rows and columns, one sheet per page. Works best on simple grid tables.",
+      accept: "application/pdf", multiple: false, minFiles: 1,
+      run: pdfToExcel,
+    },
+    "pdf-to-pdfa": {
+      title: "PDF to PDF/A", sub: "Best-effort archival tagging — adds PDF/A identification metadata (XMP). Not a full ISO 19005 conformance check.",
+      accept: "application/pdf", multiple: true, minFiles: 1,
+      run: pdfToPdfA,
+    },
+    "ai-summarizer": {
+      title: "AI Summarizer", sub: "An on-device algorithm pulls the most important sentences out of a PDF — fully offline, not a cloud AI model.",
+      accept: "application/pdf", multiple: false, minFiles: 1,
+      options: () => `
+        <label class="opt-label">Summary length
+          <select id="opt-length" class="opt-input">
+            <option value="short">Short</option>
+            <option value="medium" selected>Medium</option>
+            <option value="long">Long</option>
+          </select>
+        </label>`,
+      readOpts: () => ({ length: $("#opt-length").value }),
+      run: pdfSummarize,
+    },
+    "translate-pdf": {
+      title: "Translate PDF", sub: "Extracts the text and translates it using a free public translation service. This is the one tool here that needs the internet.",
+      accept: "application/pdf", multiple: false, minFiles: 1,
+      options: () => `
+        <label class="opt-label">Translate to
+          <select id="opt-lang" class="opt-input">
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="pt">Portuguese</option>
+            <option value="it">Italian</option>
+            <option value="hi">Hindi</option>
+            <option value="ar">Arabic</option>
+            <option value="zh-CN">Chinese (Simplified)</option>
+            <option value="ja">Japanese</option>
+            <option value="ru">Russian</option>
+          </select>
+        </label>`,
+      readOpts: () => ({ lang: $("#opt-lang").value }),
+      run: pdfTranslate,
+    },
   };
 
   /* ---------------- mobile nav (works on every page, wired FIRST and
