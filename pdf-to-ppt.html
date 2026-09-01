@@ -74,7 +74,23 @@
   "@type": "FAQPage",
   "mainEntity": [
     { "@type": "Question", "name": "Can I edit the text on each slide afterward?", "acceptedAnswer": { "@type": "Answer", "text": "Not directly — each slide is an image of the original page, which preserves the exact look but means the text isn't a separate, editable text box in PowerPoint." } },
-    { "@type": "Question", "name": "How many pages can it handle?", "acceptedAnswer": { "@type": "Answer", "text": "Any length works, but very long PDFs take longer since every page is rendered as a high-resolution image before being placed on a slide." } }
+    { "@type": "Question", "name": "How many pages can it handle?", "acceptedAnswer": { "@type": "Answer", "text": "Any length works, but very long PDFs take longer since every page is rendered as a high-resolution image before being placed on a slide." } },
+    {
+      "@type": "Question",
+      "name": "Why an image instead of editable text and shapes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PDFs don't have a reliable, universal way to reconstruct original slide layouts as editable objects, so rendering each page as an image preserves the exact look instead."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this work on any PDF?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 since it works by rendering pages as images rather than depending on the PDF having any particular internal structure."
+      }
+    }
   ]
 }
 </script>
@@ -218,6 +234,9 @@
         <li>Download the .pptx.</li>
       </ol>
 
+      <h2>When this helps</h2>
+      <p>Getting a PDF's exact visual layout into a slide deck quickly, when you need to present it or drop it into a bigger deck as reference slides.</p>
+
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
@@ -227,6 +246,14 @@
         <details>
           <summary>How many pages can it handle?</summary>
           <p>Any length works, but very long PDFs take longer since every page is rendered as a high-resolution image before being placed on a slide.</p>
+        </details>
+        <details>
+          <summary>Why an image instead of editable text and shapes?</summary>
+          <p>PDFs don't have a reliable, universal way to reconstruct original slide layouts as editable objects, so rendering each page as an image preserves the exact look instead.</p>
+        </details>
+        <details>
+          <summary>Does this work on any PDF?</summary>
+          <p>Yes — since it works by rendering pages as images rather than depending on the PDF having any particular internal structure.</p>
         </details>
       </div>
     </section>

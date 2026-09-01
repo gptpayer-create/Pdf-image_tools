@@ -75,7 +75,23 @@
   "mainEntity": [
     { "@type": "Question", "name": "Does this upload my file anywhere?", "acceptedAnswer": { "@type": "Answer", "text": "No — the OCR model runs entirely in your browser. It downloads once (a few megabytes) and then works fully offline; your PDF never leaves your device." } },
     { "@type": "Question", "name": "What languages are supported?", "acceptedAnswer": { "@type": "Answer", "text": "English, Spanish, French, German, Portuguese, Hindi, Arabic, and Simplified Chinese. Pick the one that matches your document before running." } },
-    { "@type": "Question", "name": "How accurate is it?", "acceptedAnswer": { "@type": "Answer", "text": "Accuracy depends heavily on scan quality — clean, high-contrast, upright scans do best. Handwriting, skewed pages, and low-resolution scans will have more errors." } }
+    { "@type": "Question", "name": "How accurate is it?", "acceptedAnswer": { "@type": "Answer", "text": "Accuracy depends heavily on scan quality — clean, high-contrast, upright scans do best. Handwriting, skewed pages, and low-resolution scans will have more errors." } },
+    {
+      "@type": "Question",
+      "name": "What output format do I get?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Markdown \u2014 the recognized text, not a re-scanned image-based PDF."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate is it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Accuracy depends heavily on scan quality and the language you select \u2014 clean, high-contrast scans work best; skewed or low-resolution scans will have more errors."
+      }
+    }
   ]
 }
 </script>
@@ -220,6 +236,9 @@
         <li>Download the .md file with the recognized text.</li>
       </ol>
 
+      <h2>When this helps</h2>
+      <p>Making a scanned contract, an old book page, or a photographed document searchable and copyable instead of being a flat image.</p>
+
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
@@ -233,6 +252,14 @@
         <details>
           <summary>How accurate is it?</summary>
           <p>Accuracy depends heavily on scan quality — clean, high-contrast, upright scans do best. Handwriting, skewed pages, and low-resolution scans will have more errors.</p>
+        </details>
+        <details>
+          <summary>What output format do I get?</summary>
+          <p>Markdown — the recognized text, not a re-scanned image-based PDF.</p>
+        </details>
+        <details>
+          <summary>How accurate is it?</summary>
+          <p>Accuracy depends heavily on scan quality and the language you select — clean, high-contrast scans work best; skewed or low-resolution scans will have more errors.</p>
         </details>
       </div>
     </section>

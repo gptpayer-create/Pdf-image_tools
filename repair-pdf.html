@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Repair PDF — Free, in your browser | gptpayer</title>
-<meta name="description" content="Fix a corrupted or broken PDF file by re-packaging it, or rebuilding it page by page — free, in your browser.">
+<meta name="description" content="Fix a PDF that won't open properly by re-packaging it, or rebuilding it page-by-page if needed — entirely in your browser.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="gptpayer">
 <meta property="og:title" content="Repair PDF — Free, in your browser | gptpayer">
-<meta property="og:description" content="Fix a corrupted or broken PDF file by re-packaging it, or rebuilding it page by page — free, in your browser.">
+<meta property="og:description" content="Fix a PDF that won't open properly by re-packaging it, or rebuilding it page-by-page if needed — entirely in your browser.">
 <meta property="og:image" content="https://gptpayer.online/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,7 +25,7 @@
 <!-- Twitter card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Repair PDF — Free, in your browser | gptpayer">
-<meta name="twitter:description" content="Fix a corrupted or broken PDF file by re-packaging it, or rebuilding it page by page — free, in your browser.">
+<meta name="twitter:description" content="Fix a PDF that won't open properly by re-packaging it, or rebuilding it page-by-page if needed — entirely in your browser.">
 <meta name="twitter:image" content="https://gptpayer.online/og-image.png">
 
 <!-- Google Analytics (GA4) -->
@@ -55,7 +55,7 @@
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any (runs in web browser)",
   "url": "https://gptpayer.online/repair-pdf.html",
-  "description": "Fix a corrupted or broken PDF file by re-packaging it, or rebuilding it page by page — free, in your browser.",
+  "description": "Fix a PDF that won't open properly by re-packaging it, or rebuilding it page-by-page if needed — entirely in your browser.",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -73,8 +73,38 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Will this always fix a PDF?", "acceptedAnswer": { "@type": "Answer", "text": "No — some files are corrupted beyond what any tool can recover. This handles common structural issues and can rebuild readable pages as images when the original structure can't be salvaged." } },
-    { "@type": "Question", "name": "Will text still be selectable after a fallback repair?", "acceptedAnswer": { "@type": "Answer", "text": "Only if the normal repair path worked. The image-based fallback produces pages that look right but aren't searchable, since they're rendered as pictures of the page." } }
+    {
+      "@type": "Question",
+      "name": "Will this recover a PDF that's completely corrupted?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not always. If the file's core structure is too damaged to parse at all, no repair tool \u2014 this one included \u2014 can pull content back out of it. It works best on files that open with errors or missing formatting, not files that won't open at all."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does repair change the content of my PDF?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The goal is to preserve content exactly; the page-by-page fallback re-renders pages that could still be read, which can occasionally alter fine formatting details on those specific pages."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why did some pages come back blank?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If a page's content stream was too damaged to render even in the fallback pass, it's left blank rather than guessed at."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my file uploaded anywhere to be repaired?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 the repair logic runs entirely in your browser tab, so the file never leaves your device."
+      }
+    }
   ]
 }
 </script>
@@ -83,9 +113,24 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gptpayer.online/" },
-    { "@type": "ListItem", "position": 2, "name": "PDF tools", "item": "https://gptpayer.online/index.html#pdf-tools" },
-    { "@type": "ListItem", "position": 3, "name": "Repair PDF", "item": "https://gptpayer.online/repair-pdf.html" }
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://gptpayer.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "PDF tools",
+      "item": "https://gptpayer.online/index.html#pdf-tools"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Repair PDF",
+      "item": "https://gptpayer.online/repair-pdf.html"
+    }
   ]
 }
 </script>
@@ -185,7 +230,7 @@
 
     <div class="tool-page-intro">
       <span class="section-tag section-tag--coral">PDF</span>
-      <p>First tries to reload and re-save the file with a lenient parser. If the file is too damaged for that, it falls back to rendering every page it still can and rebuilding a fresh PDF from those.</p>
+      <p>For PDFs that error out, show blank pages, or won't open at all in some viewers. The tool first tries a straightforward re-package of the file's internal structure; if that doesn't produce a valid document, it falls back to rebuilding the PDF page-by-page from whatever content can still be rendered, so you at least recover the pages that survived the damage.</p>
     </div>
 
     <div class="tool-widget-wrap">
@@ -202,7 +247,6 @@
 
           <div class="file-list" id="file-list"></div>
           <div class="tool-options" id="tool-options"></div>
-          <div class="tool-dynamic" id="tool-dynamic"></div>
           <button type="button" class="btn btn-coral modal-run" id="modal-run" disabled>Choose a file first</button>
           <div class="modal-status" id="modal-status" role="status" aria-live="polite"></div>
           <div class="modal-result" id="modal-result"></div>
@@ -213,20 +257,28 @@
     <section class="tool-seo-content">
       <h2>How to use Repair PDF</h2>
       <ol>
-        <li>Add the PDF that won't open properly.</li>
-        <li>Tap Run.</li>
-        <li>Download the repaired file. If some pages were unreadable, they're skipped rather than the whole job failing.</li>
+        <li>Add the damaged PDF to the drop zone below.</li>
+        <li>Tap Run — repair happens automatically, no options to set.</li>
+        <li>Download the repaired file and check it opens correctly in your usual PDF viewer.</li>
       </ol>
 
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
-          <summary>Will this always fix a PDF?</summary>
-          <p>No — some files are corrupted beyond what any tool can recover. This handles common structural issues and can rebuild readable pages as images when the original structure can't be salvaged.</p>
+          <summary>Will this recover a PDF that's completely corrupted?</summary>
+          <p>Not always. If the file's core structure is too damaged to parse at all, no repair tool — this one included — can pull content back out of it. It works best on files that open with errors or missing formatting, not files that won't open at all.</p>
         </details>
         <details>
-          <summary>Will text still be selectable after a fallback repair?</summary>
-          <p>Only if the normal repair path worked. The image-based fallback produces pages that look right but aren't searchable, since they're rendered as pictures of the page.</p>
+          <summary>Does repair change the content of my PDF?</summary>
+          <p>The goal is to preserve content exactly; the page-by-page fallback re-renders pages that could still be read, which can occasionally alter fine formatting details on those specific pages.</p>
+        </details>
+        <details>
+          <summary>Why did some pages come back blank?</summary>
+          <p>If a page's content stream was too damaged to render even in the fallback pass, it's left blank rather than guessed at.</p>
+        </details>
+        <details>
+          <summary>Is my file uploaded anywhere to be repaired?</summary>
+          <p>No — the repair logic runs entirely in your browser tab, so the file never leaves your device.</p>
         </details>
       </div>
     </section>
@@ -234,9 +286,9 @@
     <section class="related-tools">
       <h2>More pdf tools</h2>
       <div class="related-grid">
-        <a href="compress-pdf.html" class="related-card"><h3>Compress PDF</h3><p>Shrink a PDF's file size while keeping pages readable —…</p></a>
-        <a href="merge-pdf.html" class="related-card"><h3>Merge PDF</h3><p>Combine multiple PDFs into a single ordered file — free, in your browser…</p></a>
-        <a href="pdf-to-jpg.html" class="related-card"><h3>PDF to JPG</h3><p>Export every page of a PDF as a standalone JPG image —…</p></a>
+        <a href="unlock-pdf.html" class="related-card"><h3>Unlock PDF</h3><p>Remove a password you already know — free, in your browser.</p></a>
+        <a href="compress-pdf.html" class="related-card"><h3>Compress PDF</h3><p>Re-package a file to reduce its size — free, in your browser.</p></a>
+        <a href="organize-pdf.html" class="related-card"><h3>Organize PDF</h3><p>Reorder, rotate or drop pages using page thumbnails — free, in your browser.</p></a>
       </div>
     </section>
   </div>

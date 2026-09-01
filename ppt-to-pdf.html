@@ -74,7 +74,23 @@
   "@type": "FAQPage",
   "mainEntity": [
     { "@type": "Question", "name": "Do images and slide design carry over?", "acceptedAnswer": { "@type": "Answer", "text": "Not in this version — only the title and body text of each slide is rebuilt, one slide per PDF page. Full visual fidelity (images, custom layouts, themes) is on the roadmap." } },
-    { "@type": "Question", "name": "Is my file uploaded anywhere?", "acceptedAnswer": { "@type": "Answer", "text": "No — the .pptx is unzipped and read entirely in your browser; nothing is sent to a server." } }
+    { "@type": "Question", "name": "Is my file uploaded anywhere?", "acceptedAnswer": { "@type": "Answer", "text": "No — the .pptx is unzipped and read entirely in your browser; nothing is sent to a server." } },
+    {
+      "@type": "Question",
+      "name": "How many slides can I convert at once?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No hard limit, though very large decks take longer since everything renders in your browser tab."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I convert several presentations in one go?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 add multiple files and each is converted independently; you'll get a zip back if you add more than one."
+      }
+    }
   ]
 }
 </script>
@@ -218,6 +234,9 @@
         <li>Download the converted PDF(s).</li>
       </ol>
 
+      <h2>When this helps</h2>
+      <p>Sharing a presentation's content with someone who doesn't have PowerPoint installed, when getting the text across matters more than matching the exact slide visuals.</p>
+
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
@@ -227,6 +246,14 @@
         <details>
           <summary>Is my file uploaded anywhere?</summary>
           <p>No — the .pptx is unzipped and read entirely in your browser; nothing is sent to a server.</p>
+        </details>
+        <details>
+          <summary>How many slides can I convert at once?</summary>
+          <p>No hard limit, though very large decks take longer since everything renders in your browser tab.</p>
+        </details>
+        <details>
+          <summary>Can I convert several presentations in one go?</summary>
+          <p>Yes — add multiple files and each is converted independently; you'll get a zip back if you add more than one.</p>
         </details>
       </div>
     </section>

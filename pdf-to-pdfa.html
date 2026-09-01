@@ -74,7 +74,23 @@
   "@type": "FAQPage",
   "mainEntity": [
     { "@type": "Question", "name": "Is the output guaranteed PDF/A-conformant?", "acceptedAnswer": { "@type": "Answer", "text": "No — true PDF/A conformance also requires things like embedded ICC color profiles and font-embedding checks across the whole file, which this browser-based pass doesn't fully verify. It adds the standard PDF/A identification metadata, which is honest and useful, but not a certified conversion." } },
-    { "@type": "Question", "name": "What's it good for, then?", "acceptedAnswer": { "@type": "Answer", "text": "It's a lightweight way to flag a PDF's archival intent for systems that check for PDF/A metadata, without needing to install desktop software." } }
+    { "@type": "Question", "name": "What's it good for, then?", "acceptedAnswer": { "@type": "Answer", "text": "It's a lightweight way to flag a PDF's archival intent for systems that check for PDF/A metadata, without needing to install desktop software." } },
+    {
+      "@type": "Question",
+      "name": "Will this work for strict institutional or legal archiving requirements?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For requirements with strict, audited PDF/A conformance, verify with dedicated archival software; this tool covers the common case of tagging a document for basic archival purposes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I convert several PDFs at once?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 add multiple files and each is tagged independently; you'll get a zip back if you add more than one."
+      }
+    }
   ]
 }
 </script>
@@ -218,6 +234,9 @@
         <li>Download the tagged PDF(s).</li>
       </ol>
 
+      <h2>When this helps</h2>
+      <p>Preparing a document for long-term digital archiving or submission to an institution that requires PDF/A format, without needing specialized archiving software.</p>
+
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
@@ -227,6 +246,14 @@
         <details>
           <summary>What's it good for, then?</summary>
           <p>It's a lightweight way to flag a PDF's archival intent for systems that check for PDF/A metadata, without needing to install desktop software.</p>
+        </details>
+        <details>
+          <summary>Will this work for strict institutional or legal archiving requirements?</summary>
+          <p>For requirements with strict, audited PDF/A conformance, verify with dedicated archival software; this tool covers the common case of tagging a document for basic archival purposes.</p>
+        </details>
+        <details>
+          <summary>Can I convert several PDFs at once?</summary>
+          <p>Yes — add multiple files and each is tagged independently; you'll get a zip back if you add more than one.</p>
         </details>
       </div>
     </section>

@@ -249,6 +249,9 @@
         <li>Tap Run to download just that page range as a new PDF.</li>
       </ol>
 
+      <h2>When this comes in handy</h2>
+      <p>Pulling one chapter out of a book-length PDF, separating a single contract out of a bundle of scanned agreements, or grabbing just the pages you need from a long report without sending the whole thing.</p>
+
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
@@ -258,6 +261,18 @@
         <details>
           <summary>Does splitting affect the original file?</summary>
           <p>No — your original upload is only read in memory to build the new file; nothing is modified or deleted from it.</p>
+        </details>
+        <details>
+          <summary>What happens if I enter an end page beyond the document's length?</summary>
+          <p>The range is capped at the last actual page in the file, so you won't get a broken or padded-out result.</p>
+        </details>
+        <details>
+          <summary>Can I split out more than one range at a time?</summary>
+          <p>Not in a single run — this tool produces one continuous range per run. For several separate ranges, run it again for each one you need.</p>
+        </details>
+        <details>
+          <summary>Is the resulting PDF fully editable and standalone?</summary>
+          <p>Yes — the output is a normal, standalone PDF containing just the selected pages, with no link back to the original file.</p>
         </details>
       </div>
     </section>

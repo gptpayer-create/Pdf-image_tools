@@ -73,7 +73,23 @@
   "@type": "FAQPage",
   "mainEntity": [
     { "@type": "Question", "name": "Can I screenshot a live website URL?", "acceptedAnswer": { "@type": "Answer", "text": "Not yet — browsers block a page from fetching and rendering an arbitrary external site's HTML, so this works on an .html file you already have." } },
-    { "@type": "Question", "name": "Why is part of my page missing from the image?", "acceptedAnswer": { "@type": "Answer", "text": "Cross-origin images or fonts without CORS headers can't be captured by the renderer and will appear blank." } }
+    { "@type": "Question", "name": "Why is part of my page missing from the image?", "acceptedAnswer": { "@type": "Answer", "text": "Cross-origin images or fonts without CORS headers can't be captured by the renderer and will appear blank." } },
+    {
+      "@type": "Question",
+      "name": "Does it capture the whole page or just the visible area?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The whole rendered page is captured as one image, not just what would fit in a browser window."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if my HTML file references local files on my computer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Only resources reachable by URL (with CORS) render correctly; references to files elsewhere on your local disk won't load."
+      }
+    }
   ]
 }
 </script>
@@ -217,6 +233,9 @@
         <li>Download the PNG screenshot.</li>
       </ol>
 
+      <h2>When this helps</h2>
+      <p>Turning a saved web page or a locally-built HTML snippet into a single shareable image, without opening a browser just to take a screenshot.</p>
+
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
@@ -226,6 +245,14 @@
         <details>
           <summary>Why is part of my page missing from the image?</summary>
           <p>Cross-origin images or fonts without CORS headers can't be captured by the renderer and will appear blank.</p>
+        </details>
+        <details>
+          <summary>Does it capture the whole page or just the visible area?</summary>
+          <p>The whole rendered page is captured as one image, not just what would fit in a browser window.</p>
+        </details>
+        <details>
+          <summary>What if my HTML file references local files on my computer?</summary>
+          <p>Only resources reachable by URL (with CORS) render correctly; references to files elsewhere on your local disk won't load.</p>
         </details>
       </div>
     </section>

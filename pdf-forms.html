@@ -74,7 +74,23 @@
   "@type": "FAQPage",
   "mainEntity": [
     { "@type": "Question", "name": "What if no fields are detected?", "acceptedAnswer": { "@type": "Answer", "text": "The PDF likely doesn't have a real AcroForm layer — some \"fillable-looking\" PDFs are just images or flat text, which this tool can't detect fields in." } },
-    { "@type": "Question", "name": "What does flattening do?", "acceptedAnswer": { "@type": "Answer", "text": "It bakes the entered values permanently into the page and removes the interactive form fields, so the values can't be edited afterward." } }
+    { "@type": "Question", "name": "What does flattening do?", "acceptedAnswer": { "@type": "Answer", "text": "It bakes the entered values permanently into the page and removes the interactive form fields, so the values can't be edited afterward." } },
+    {
+      "@type": "Question",
+      "name": "What if my PDF doesn't have fillable fields?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If no AcroForm fields are detected, the PDF wasn't built with a fillable layer \u2014 Edit PDF can stamp text onto it manually instead."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my filled-in data uploaded anywhere?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 form detection and filling happen entirely in your browser tab."
+      }
+    }
   ]
 }
 </script>
@@ -218,6 +234,9 @@
         <li>Tap Run to download the filled (and, if checked, flattened) PDF.</li>
       </ol>
 
+      <h2>When this helps</h2>
+      <p>Filling out a fillable PDF form — a job application, tax form, or intake sheet — without printing it first.</p>
+
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
@@ -227,6 +246,14 @@
         <details>
           <summary>What does flattening do?</summary>
           <p>It bakes the entered values permanently into the page and removes the interactive form fields, so the values can't be edited afterward.</p>
+        </details>
+        <details>
+          <summary>What if my PDF doesn't have fillable fields?</summary>
+          <p>If no AcroForm fields are detected, the PDF wasn't built with a fillable layer — Edit PDF can stamp text onto it manually instead.</p>
+        </details>
+        <details>
+          <summary>Is my filled-in data uploaded anywhere?</summary>
+          <p>No — form detection and filling happen entirely in your browser tab.</p>
         </details>
       </div>
     </section>

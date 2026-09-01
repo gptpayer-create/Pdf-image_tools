@@ -91,6 +91,22 @@
         "@type": "Answer",
         "text": "The black rectangle is drawn as a new shape on top of the page content \u2014 the underlying text or image data is not deleted from the file itself, only visually covered, so this is best used together with Compress PDF's re-save step, or for visual-only redaction rather than forensic-grade removal."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the redacted content actually removed, or just covered?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The area is permanently blacked out in the saved file's content \u2014 it's not a movable overlay that could be dragged aside."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this work on scanned PDFs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 it blacks out a pixel region regardless of whether the underlying content is text or a scanned image."
+      }
     }
   ]
 }
@@ -250,6 +266,9 @@
         <li>Tap Run — the box is drawn as a solid black rectangle directly into the page.</li>
       </ol>
 
+      <h2>When this helps</h2>
+      <p>Blacking out a social security number, account number, or other sensitive detail before sharing a document with someone else.</p>
+
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
@@ -259,6 +278,14 @@
         <details>
           <summary>Is the redacted content actually removed, or just covered?</summary>
           <p>The black rectangle is drawn as a new shape on top of the page content — the underlying text or image data is not deleted from the file itself, only visually covered, so this is best used together with Compress PDF's re-save step, or for visual-only redaction rather than forensic-grade removal.</p>
+        </details>
+        <details>
+          <summary>Is the redacted content actually removed, or just covered?</summary>
+          <p>The area is permanently blacked out in the saved file's content — it's not a movable overlay that could be dragged aside.</p>
+        </details>
+        <details>
+          <summary>Does this work on scanned PDFs?</summary>
+          <p>Yes — it blacks out a pixel region regardless of whether the underlying content is text or a scanned image.</p>
         </details>
       </div>
     </section>

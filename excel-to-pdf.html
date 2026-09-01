@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Excel to PDF — Free, in your browser | gptpayer</title>
-<meta name="description" content="Convert an .xlsx spreadsheet into a PDF — free, entirely in your browser.">
+<meta name="description" content="Turn each sheet of a spreadsheet into a PDF table, entirely in your browser. No upload, no sign-up.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="gptpayer">
 <meta property="og:title" content="Excel to PDF — Free, in your browser | gptpayer">
-<meta property="og:description" content="Convert an .xlsx spreadsheet into a PDF — free, entirely in your browser.">
+<meta property="og:description" content="Turn each sheet of a spreadsheet into a PDF table, entirely in your browser. No upload, no sign-up.">
 <meta property="og:image" content="https://gptpayer.online/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,7 +25,7 @@
 <!-- Twitter card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Excel to PDF — Free, in your browser | gptpayer">
-<meta name="twitter:description" content="Convert an .xlsx spreadsheet into a PDF — free, entirely in your browser.">
+<meta name="twitter:description" content="Turn each sheet of a spreadsheet into a PDF table, entirely in your browser. No upload, no sign-up.">
 <meta name="twitter:image" content="https://gptpayer.online/og-image.png">
 
 <!-- Google Analytics (GA4) -->
@@ -55,7 +55,7 @@
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any (runs in web browser)",
   "url": "https://gptpayer.online/excel-to-pdf.html",
-  "description": "Convert an .xlsx spreadsheet into a PDF — free, entirely in your browser.",
+  "description": "Turn each sheet of a spreadsheet into a PDF table, entirely in your browser. No upload, no sign-up.",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -73,8 +73,38 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "What happens with multiple sheets?", "acceptedAnswer": { "@type": "Answer", "text": "Every sheet in the workbook is included, each under its own heading, one after another in the PDF." } },
-    { "@type": "Question", "name": "Do formulas show their calculated values?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — the last-calculated values stored in the file are what's shown, not the formulas themselves." } }
+    {
+      "@type": "Question",
+      "name": "Does formatting like cell colors carry over?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The tool focuses on getting values into a clean table layout; complex formatting like custom cell colors, merged cells or embedded charts may not carry over exactly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens with very wide sheets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Wide sheets are scaled to fit the page width where possible, but extremely wide tables with many columns may still wrap or shrink to stay legible."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I convert several spreadsheets in one go?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 add multiple files and each is converted independently; you'll get a zip back if you add more than one."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does every sheet in a workbook get converted?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, every sheet in the file is included as its own section in the output PDF."
+      }
+    }
   ]
 }
 </script>
@@ -83,9 +113,24 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gptpayer.online/" },
-    { "@type": "ListItem", "position": 2, "name": "PDF tools", "item": "https://gptpayer.online/index.html#pdf-tools" },
-    { "@type": "ListItem", "position": 3, "name": "Excel to PDF", "item": "https://gptpayer.online/excel-to-pdf.html" }
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://gptpayer.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "PDF tools",
+      "item": "https://gptpayer.online/index.html#pdf-tools"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Excel to PDF",
+      "item": "https://gptpayer.online/excel-to-pdf.html"
+    }
   ]
 }
 </script>
@@ -185,7 +230,7 @@
 
     <div class="tool-page-intro">
       <span class="section-tag section-tag--coral">PDF</span>
-      <p>Upload one or more spreadsheets and every sheet is rendered as a table and assembled into a downloadable PDF, right in your browser.</p>
+      <p>Converts .xls or .xlsx spreadsheets into a PDF, laying out each sheet as its own table so the result is easy to print or share with someone who doesn't have Excel installed. Add several spreadsheets at once to convert a batch in one go.</p>
     </div>
 
     <div class="tool-widget-wrap">
@@ -202,7 +247,6 @@
 
           <div class="file-list" id="file-list"></div>
           <div class="tool-options" id="tool-options"></div>
-          <div class="tool-dynamic" id="tool-dynamic"></div>
           <button type="button" class="btn btn-coral modal-run" id="modal-run" disabled>Choose a file first</button>
           <div class="modal-status" id="modal-status" role="status" aria-live="polite"></div>
           <div class="modal-result" id="modal-result"></div>
@@ -213,20 +257,28 @@
     <section class="tool-seo-content">
       <h2>How to use Excel to PDF</h2>
       <ol>
-        <li>Add one or more .xlsx files.</li>
-        <li>Tap Run.</li>
-        <li>Download the converted PDF(s).</li>
+        <li>Add one or more spreadsheet files to the drop zone below.</li>
+        <li>Tap Run — each sheet is laid out as a PDF table automatically.</li>
+        <li>Download the PDF (or a zip, if you added several) — one file per spreadsheet.</li>
       </ol>
 
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
-          <summary>What happens with multiple sheets?</summary>
-          <p>Every sheet in the workbook is included, each under its own heading, one after another in the PDF.</p>
+          <summary>Does formatting like cell colors carry over?</summary>
+          <p>The tool focuses on getting values into a clean table layout; complex formatting like custom cell colors, merged cells or embedded charts may not carry over exactly.</p>
         </details>
         <details>
-          <summary>Do formulas show their calculated values?</summary>
-          <p>Yes — the last-calculated values stored in the file are what's shown, not the formulas themselves.</p>
+          <summary>What happens with very wide sheets?</summary>
+          <p>Wide sheets are scaled to fit the page width where possible, but extremely wide tables with many columns may still wrap or shrink to stay legible.</p>
+        </details>
+        <details>
+          <summary>Can I convert several spreadsheets in one go?</summary>
+          <p>Yes — add multiple files and each is converted independently; you'll get a zip back if you add more than one.</p>
+        </details>
+        <details>
+          <summary>Does every sheet in a workbook get converted?</summary>
+          <p>Yes, every sheet in the file is included as its own section in the output PDF.</p>
         </details>
       </div>
     </section>
@@ -234,9 +286,9 @@
     <section class="related-tools">
       <h2>More pdf tools</h2>
       <div class="related-grid">
-        <a href="pdf-to-excel.html" class="related-card"><h3>PDF to Excel</h3><p>Pull tables out of a PDF into a spreadsheet — free, entirely in your browser…</p></a>
-        <a href="word-to-pdf.html" class="related-card"><h3>Word to PDF</h3><p>Convert a .docx file into a PDF — free, entirely in your browser…</p></a>
-        <a href="html-to-pdf.html" class="related-card"><h3>HTML to PDF</h3><p>Render an .html file into a paginated PDF — free, entirely in your browser…</p></a>
+        <a href="pdf-to-excel.html" class="related-card"><h3>PDF to Excel</h3><p>Best-effort table extraction from a PDF — free, in your browser.</p></a>
+        <a href="word-to-pdf.html" class="related-card"><h3>Word to PDF</h3><p>Turn a .docx into a PDF — free, in your browser.</p></a>
+        <a href="ppt-to-pdf.html" class="related-card"><h3>PPT to PDF</h3><p>Turn a PowerPoint into a PDF — free, in your browser.</p></a>
       </div>
     </section>
   </div>
@@ -263,9 +315,7 @@
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
 <script src="app.js" defer></script>
 </body>
 </html>

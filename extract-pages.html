@@ -91,6 +91,22 @@
         "@type": "Answer",
         "text": "Out-of-range numbers are silently ignored, so the tool only pulls the valid pages from your list."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this work on more than one file at once?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 the page list is specific to one document's page count, so run it again for another file."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if I list the same page twice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It's only included once in the output; duplicate entries in the list don't produce duplicate pages."
+      }
     }
   ]
 }
@@ -249,6 +265,9 @@
         <li>Tap Run to download a new PDF containing only those pages, in that order.</li>
       </ol>
 
+      <h2>When this helps</h2>
+      <p>Pulling a signature page out of a long contract, grabbing just the pages you need from a shared manual, or building a shorter document from selected pages of a longer one.</p>
+
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
@@ -258,6 +277,14 @@
         <details>
           <summary>What if I list a page number that doesn't exist?</summary>
           <p>Out-of-range numbers are silently ignored, so the tool only pulls the valid pages from your list.</p>
+        </details>
+        <details>
+          <summary>Does this work on more than one file at once?</summary>
+          <p>No — the page list is specific to one document's page count, so run it again for another file.</p>
+        </details>
+        <details>
+          <summary>What if I list the same page twice?</summary>
+          <p>It's only included once in the output; duplicate entries in the list don't produce duplicate pages.</p>
         </details>
       </div>
     </section>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PDF to Markdown — Free, in your browser | gptpayer</title>
-<meta name="description" content="Turn a PDF into clean Markdown text, with headings guessed from font size — free, in your browser.">
+<meta name="description" content="Extract text from a PDF and guess headings from font size to produce clean Markdown, entirely in your browser.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="gptpayer">
 <meta property="og:title" content="PDF to Markdown — Free, in your browser | gptpayer">
-<meta property="og:description" content="Turn a PDF into clean Markdown text, with headings guessed from font size — free, in your browser.">
+<meta property="og:description" content="Extract text from a PDF and guess headings from font size to produce clean Markdown, entirely in your browser.">
 <meta property="og:image" content="https://gptpayer.online/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,7 +25,7 @@
 <!-- Twitter card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="PDF to Markdown — Free, in your browser | gptpayer">
-<meta name="twitter:description" content="Turn a PDF into clean Markdown text, with headings guessed from font size — free, in your browser.">
+<meta name="twitter:description" content="Extract text from a PDF and guess headings from font size to produce clean Markdown, entirely in your browser.">
 <meta name="twitter:image" content="https://gptpayer.online/og-image.png">
 
 <!-- Google Analytics (GA4) -->
@@ -55,7 +55,7 @@
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any (runs in web browser)",
   "url": "https://gptpayer.online/pdf-to-markdown.html",
-  "description": "Turn a PDF into clean Markdown text, with headings guessed from font size — free, in your browser.",
+  "description": "Extract text from a PDF and guess headings from font size to produce clean Markdown, entirely in your browser.",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -73,8 +73,38 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Will this preserve tables and columns?", "acceptedAnswer": { "@type": "Answer", "text": "Not reliably — it's built for simple, mostly-text documents. Complex multi-column layouts or tables may come out jumbled." } },
-    { "@type": "Question", "name": "How are headings detected?", "acceptedAnswer": { "@type": "Answer", "text": "By comparing each line's font size to the median size on that page — noticeably larger lines become # or ## headings. It's a heuristic, not a guarantee." } }
+    {
+      "@type": "Question",
+      "name": "Will tables come through correctly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not reliably \u2014 table extraction into Markdown's pipe syntax is not what this tool does; it focuses on paragraph and heading text. For tables, PDF to Excel is the better fit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does it decide what's a heading?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It compares each line's font size to the body text size on the page \u2014 noticeably larger text is treated as a heading, roughly matching how a person would skim the document."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work on scanned PDFs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 scanned pages are images, not text, so there's nothing to extract. Run OCR PDF first, then convert the result."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the output editable?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, the .md file is plain text and opens in any text editor, Markdown viewer, or static-site generator."
+      }
+    }
   ]
 }
 </script>
@@ -83,9 +113,24 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gptpayer.online/" },
-    { "@type": "ListItem", "position": 2, "name": "PDF tools", "item": "https://gptpayer.online/index.html#pdf-tools" },
-    { "@type": "ListItem", "position": 3, "name": "PDF to Markdown", "item": "https://gptpayer.online/pdf-to-markdown.html" }
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://gptpayer.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "PDF tools",
+      "item": "https://gptpayer.online/index.html#pdf-tools"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "PDF to Markdown",
+      "item": "https://gptpayer.online/pdf-to-markdown.html"
+    }
   ]
 }
 </script>
@@ -185,7 +230,7 @@
 
     <div class="tool-page-intro">
       <span class="section-tag section-tag--coral">PDF</span>
-      <p>Extracts the text of every page and uses each line's font size relative to the page's body text to guess which lines are headings, producing a readable .md file.</p>
+      <p>Pulls the text out of a PDF and turns it into Markdown, inferring heading levels from relative font size along the way. It's aimed at simple, text-based documents — reports, articles, notes — rather than PDFs built around complex tables or multi-column layouts, which don't map cleanly onto Markdown's structure.</p>
     </div>
 
     <div class="tool-widget-wrap">
@@ -202,7 +247,6 @@
 
           <div class="file-list" id="file-list"></div>
           <div class="tool-options" id="tool-options"></div>
-          <div class="tool-dynamic" id="tool-dynamic"></div>
           <button type="button" class="btn btn-coral modal-run" id="modal-run" disabled>Choose a file first</button>
           <div class="modal-status" id="modal-status" role="status" aria-live="polite"></div>
           <div class="modal-result" id="modal-result"></div>
@@ -213,20 +257,28 @@
     <section class="tool-seo-content">
       <h2>How to use PDF to Markdown</h2>
       <ol>
-        <li>Add a PDF.</li>
-        <li>Tap Run.</li>
-        <li>Download the .md file.</li>
+        <li>Add a single PDF to the drop zone below.</li>
+        <li>Tap Run — text is extracted and formatted as Markdown automatically.</li>
+        <li>Download the .md file and open it in any Markdown or plain-text editor.</li>
       </ol>
 
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
-          <summary>Will this preserve tables and columns?</summary>
-          <p>Not reliably — it's built for simple, mostly-text documents. Complex multi-column layouts or tables may come out jumbled.</p>
+          <summary>Will tables come through correctly?</summary>
+          <p>Not reliably — table extraction into Markdown's pipe syntax is not what this tool does; it focuses on paragraph and heading text. For tables, PDF to Excel is the better fit.</p>
         </details>
         <details>
-          <summary>How are headings detected?</summary>
-          <p>By comparing each line's font size to the median size on that page — noticeably larger lines become # or ## headings. It's a heuristic, not a guarantee.</p>
+          <summary>How does it decide what's a heading?</summary>
+          <p>It compares each line's font size to the body text size on the page — noticeably larger text is treated as a heading, roughly matching how a person would skim the document.</p>
+        </details>
+        <details>
+          <summary>Does it work on scanned PDFs?</summary>
+          <p>No — scanned pages are images, not text, so there's nothing to extract. Run OCR PDF first, then convert the result.</p>
+        </details>
+        <details>
+          <summary>Is the output editable?</summary>
+          <p>Yes, the .md file is plain text and opens in any text editor, Markdown viewer, or static-site generator.</p>
         </details>
       </div>
     </section>
@@ -234,9 +286,9 @@
     <section class="related-tools">
       <h2>More pdf tools</h2>
       <div class="related-grid">
-        <a href="pdf-to-jpg.html" class="related-card"><h3>PDF to JPG</h3><p>Export every page of a PDF as a standalone JPG image —…</p></a>
-        <a href="extract-pages.html" class="related-card"><h3>Extract Pages</h3><p>Pull specific, non-continuous pages out of a PDF into a new file —…</p></a>
-        <a href="compare-pdf.html" class="related-card"><h3>Compare PDF</h3><p>See what text changed between two versions of a PDF —…</p></a>
+        <a href="ocr-pdf.html" class="related-card"><h3>OCR PDF</h3><p>Recognize text on scanned pages — free, in your browser.</p></a>
+        <a href="pdf-to-word.html" class="related-card"><h3>PDF to Word</h3><p>Pull the text out of a PDF into an editable .docx — free, in your browser.</p></a>
+        <a href="pdf-to-excel.html" class="related-card"><h3>PDF to Excel</h3><p>Best-effort table extraction from a PDF — free, in your browser.</p></a>
       </div>
     </section>
   </div>
@@ -262,6 +314,7 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
 <script src="app.js" defer></script>
 </body>

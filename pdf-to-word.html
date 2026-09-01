@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PDF to Word — Free, in your browser | gptpayer</title>
-<meta name="description" content="Pull the text out of a PDF into an editable .docx — free, entirely in your browser.">
+<meta name="description" content="Pull the text out of a PDF into an editable .docx file, entirely in your browser. No upload, no sign-up.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="gptpayer">
 <meta property="og:title" content="PDF to Word — Free, in your browser | gptpayer">
-<meta property="og:description" content="Pull the text out of a PDF into an editable .docx — free, entirely in your browser.">
+<meta property="og:description" content="Pull the text out of a PDF into an editable .docx file, entirely in your browser. No upload, no sign-up.">
 <meta property="og:image" content="https://gptpayer.online/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,7 +25,7 @@
 <!-- Twitter card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="PDF to Word — Free, in your browser | gptpayer">
-<meta name="twitter:description" content="Pull the text out of a PDF into an editable .docx — free, entirely in your browser.">
+<meta name="twitter:description" content="Pull the text out of a PDF into an editable .docx file, entirely in your browser. No upload, no sign-up.">
 <meta name="twitter:image" content="https://gptpayer.online/og-image.png">
 
 <!-- Google Analytics (GA4) -->
@@ -55,7 +55,7 @@
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any (runs in web browser)",
   "url": "https://gptpayer.online/pdf-to-word.html",
-  "description": "Pull the text out of a PDF into an editable .docx — free, entirely in your browser.",
+  "description": "Pull the text out of a PDF into an editable .docx file, entirely in your browser. No upload, no sign-up.",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -73,8 +73,38 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Will the layout look the same as the PDF?", "acceptedAnswer": { "@type": "Answer", "text": "No — this tool extracts the text content and lays it out as plain paragraphs in Word, one page break per PDF page. Columns, tables and images from the original aren't rebuilt." } },
-    { "@type": "Question", "name": "What about scanned PDFs?", "acceptedAnswer": { "@type": "Answer", "text": "If the PDF has no selectable text (it's a scan), run it through OCR PDF first, then convert the result." } }
+    {
+      "@type": "Question",
+      "name": "Will the layout look exactly like the PDF?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 this tool is text-only for now. Columns, images and precise positioning aren't reconstructed, so expect a plain, reflowed document rather than a pixel match."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What kind of PDFs work best?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Text-based documents like letters, reports and articles. PDFs that are mostly scanned images or complex tables won't convert well since there's no text layer or table structure for the tool to work from."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work on scanned PDFs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not directly \u2014 scanned pages have no extractable text. Run OCR PDF first, then convert the result to Word."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the .docx editable right away?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, it opens as a normal, editable document in any standard word processor."
+      }
+    }
   ]
 }
 </script>
@@ -83,9 +113,24 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gptpayer.online/" },
-    { "@type": "ListItem", "position": 2, "name": "PDF tools", "item": "https://gptpayer.online/index.html#pdf-tools" },
-    { "@type": "ListItem", "position": 3, "name": "PDF to Word", "item": "https://gptpayer.online/pdf-to-word.html" }
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://gptpayer.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "PDF tools",
+      "item": "https://gptpayer.online/index.html#pdf-tools"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "PDF to Word",
+      "item": "https://gptpayer.online/pdf-to-word.html"
+    }
   ]
 }
 </script>
@@ -185,7 +230,7 @@
 
     <div class="tool-page-intro">
       <span class="section-tag section-tag--coral">PDF</span>
-      <p>Upload a PDF and its text is extracted, page by page, and rebuilt as an editable Word document. This pass keeps text only — original layout, images and columns aren't reconstructed.</p>
+      <p>Converts a PDF into an editable Word document so you can make changes without retyping the whole thing. This first pass focuses on getting the text out cleanly — layout, embedded images and multi-column formatting aren't rebuilt, so it works best on text-heavy documents rather than heavily designed ones.</p>
     </div>
 
     <div class="tool-widget-wrap">
@@ -202,7 +247,6 @@
 
           <div class="file-list" id="file-list"></div>
           <div class="tool-options" id="tool-options"></div>
-          <div class="tool-dynamic" id="tool-dynamic"></div>
           <button type="button" class="btn btn-coral modal-run" id="modal-run" disabled>Choose a file first</button>
           <div class="modal-status" id="modal-status" role="status" aria-live="polite"></div>
           <div class="modal-result" id="modal-result"></div>
@@ -213,20 +257,28 @@
     <section class="tool-seo-content">
       <h2>How to use PDF to Word</h2>
       <ol>
-        <li>Add a PDF file.</li>
-        <li>Tap Run.</li>
-        <li>Download the .docx.</li>
+        <li>Add a single PDF to the drop zone below.</li>
+        <li>Tap Run — text is extracted automatically, no options to set.</li>
+        <li>Download the .docx and open it in Word, Google Docs, or any compatible editor.</li>
       </ol>
 
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
-          <summary>Will the layout look the same as the PDF?</summary>
-          <p>No — this tool extracts the text content and lays it out as plain paragraphs in Word, one page break per PDF page. Columns, tables and images from the original aren't rebuilt.</p>
+          <summary>Will the layout look exactly like the PDF?</summary>
+          <p>No — this tool is text-only for now. Columns, images and precise positioning aren't reconstructed, so expect a plain, reflowed document rather than a pixel match.</p>
         </details>
         <details>
-          <summary>What about scanned PDFs?</summary>
-          <p>If the PDF has no selectable text (it's a scan), run it through OCR PDF first, then convert the result.</p>
+          <summary>What kind of PDFs work best?</summary>
+          <p>Text-based documents like letters, reports and articles. PDFs that are mostly scanned images or complex tables won't convert well since there's no text layer or table structure for the tool to work from.</p>
+        </details>
+        <details>
+          <summary>Does it work on scanned PDFs?</summary>
+          <p>Not directly — scanned pages have no extractable text. Run OCR PDF first, then convert the result to Word.</p>
+        </details>
+        <details>
+          <summary>Is the .docx editable right away?</summary>
+          <p>Yes, it opens as a normal, editable document in any standard word processor.</p>
         </details>
       </div>
     </section>
@@ -234,9 +286,9 @@
     <section class="related-tools">
       <h2>More pdf tools</h2>
       <div class="related-grid">
-        <a href="word-to-pdf.html" class="related-card"><h3>Word to PDF</h3><p>Convert a .docx file into a PDF — free, entirely in your browser…</p></a>
-        <a href="ocr-pdf.html" class="related-card"><h3>OCR PDF</h3><p>Recognize text on scanned pages, on-device, and export as Markdown…</p></a>
-        <a href="pdf-to-markdown.html" class="related-card"><h3>PDF to Markdown</h3><p>Extract structured Markdown from a PDF — free, in your browser…</p></a>
+        <a href="word-to-pdf.html" class="related-card"><h3>Word to PDF</h3><p>Turn a .docx into a PDF — free, in your browser.</p></a>
+        <a href="pdf-to-markdown.html" class="related-card"><h3>PDF to Markdown</h3><p>Extract text and headings from a PDF — free, in your browser.</p></a>
+        <a href="ocr-pdf.html" class="related-card"><h3>OCR PDF</h3><p>Recognize text on scanned pages — free, in your browser.</p></a>
       </div>
     </section>
   </div>
@@ -262,8 +314,8 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/docx@9.6.1/dist/index.umd.cjs" defer></script>
 <script src="app.js" defer></script>
 </body>
 </html>

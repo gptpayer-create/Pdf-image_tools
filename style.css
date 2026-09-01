@@ -1195,3 +1195,12 @@ body.tool-page .modal-close { display: none; }
   font-size: 0.85rem;
 }
 .start-over-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+/* Sitemap page */
+.sitemap-h1 { font-family: var(--font-display, inherit); font-size: 2rem; margin: 0.4em 0 0.2em; }
+.sitemap-intro { color: var(--ink-soft, #444); margin-bottom: 1.5em; }
+.sitemap-group { margin-bottom: 2em; }
+.sitemap-group h2 { font-size: 1.1rem; margin-bottom: 0.6em; }
+.sitemap-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.4em 1em; }
+.sitemap-list a { text-decoration: none; color: inherit; }
+.sitemap-list a:hover { text-decoration: underline; }

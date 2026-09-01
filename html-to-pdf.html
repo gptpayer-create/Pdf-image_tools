@@ -74,7 +74,23 @@
   "@type": "FAQPage",
   "mainEntity": [
     { "@type": "Question", "name": "Can I put in a website URL instead of a file?", "acceptedAnswer": { "@type": "Answer", "text": "Not yet — browsers block a page from fetching and rendering an arbitrary external site's HTML, so this works on an .html file you already have." } },
-    { "@type": "Question", "name": "Will external images and fonts show up?", "acceptedAnswer": { "@type": "Answer", "text": "Only if the source allows cross-origin loading (CORS). Self-contained HTML with inline styles/images renders most reliably." } }
+    { "@type": "Question", "name": "Will external images and fonts show up?", "acceptedAnswer": { "@type": "Answer", "text": "Only if the source allows cross-origin loading (CORS). Self-contained HTML with inline styles/images renders most reliably." } },
+    {
+      "@type": "Question",
+      "name": "How is pagination decided?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Content is measured and split across pages automatically, similar to how a browser's print view breaks up a long page."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I convert a live webpage by URL?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 this works from an uploaded .html file rather than a live URL, so save the page first if you're starting from a website."
+      }
+    }
   ]
 }
 </script>
@@ -218,6 +234,9 @@
         <li>Download the paginated PDF.</li>
       </ol>
 
+      <h2>When this helps</h2>
+      <p>Turning a saved web page, an exported email, or a locally-built HTML report into a shareable, paginated PDF.</p>
+
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
@@ -227,6 +246,14 @@
         <details>
           <summary>Will external images and fonts show up?</summary>
           <p>Only if the source allows cross-origin loading (CORS). Self-contained HTML with inline styles/images renders most reliably.</p>
+        </details>
+        <details>
+          <summary>How is pagination decided?</summary>
+          <p>Content is measured and split across pages automatically, similar to how a browser's print view breaks up a long page.</p>
+        </details>
+        <details>
+          <summary>Can I convert a live webpage by URL?</summary>
+          <p>No — this works from an uploaded .html file rather than a live URL, so save the page first if you're starting from a website.</p>
         </details>
       </div>
     </section>

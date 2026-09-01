@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Crop PDF — Free, in your browser | gptpayer</title>
-<meta name="description" content="Trim margins off every page of a PDF by a fixed amount, free, using exact point measurements.">
+<meta name="description" content="Trim a fixed margin off every page of a PDF, measured in points, entirely in your browser. No upload, no sign-up.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="gptpayer">
 <meta property="og:title" content="Crop PDF — Free, in your browser | gptpayer">
-<meta property="og:description" content="Trim margins off every page of a PDF by a fixed amount, free, using exact point measurements.">
+<meta property="og:description" content="Trim a fixed margin off every page of a PDF, measured in points, entirely in your browser. No upload, no sign-up.">
 <meta property="og:image" content="https://gptpayer.online/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,11 +25,8 @@
 <!-- Twitter card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Crop PDF — Free, in your browser | gptpayer">
-<meta name="twitter:description" content="Trim margins off every page of a PDF by a fixed amount, free, using exact point measurements.">
+<meta name="twitter:description" content="Trim a fixed margin off every page of a PDF, measured in points, entirely in your browser. No upload, no sign-up.">
 <meta name="twitter:image" content="https://gptpayer.online/og-image.png">
-
-<!-- Google Search Console: uncomment and paste your verification tag once you have it
-<meta name="google-site-verification" content="REPLACE_WITH_YOUR_CODE"> -->
 
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VQ3D9RHGZD"></script>
@@ -58,7 +55,7 @@
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any (runs in web browser)",
   "url": "https://gptpayer.online/crop-pdf.html",
-  "description": "Trim margins off every page of a PDF by a fixed amount, free, using exact point measurements.",
+  "description": "Trim a fixed margin off every page of a PDF, measured in points, entirely in your browser. No upload, no sign-up.",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -78,18 +75,34 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What unit are the margin numbers in?",
+      "name": "What unit are the margins in?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Points \u2014 the standard PDF unit, where 72 points equal 1 inch, so a 36-point margin trims about half an inch from that side."
+        "text": "Points, the same unit PDF page sizes are measured in. 72 points equals one inch, so a 36pt margin trims about half an inch from that side."
       }
     },
     {
       "@type": "Question",
-      "name": "Can I crop each page to a different size?",
+      "name": "Does this crop every page the same way?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No \u2014 the same margin is applied to every page uniformly; pages with different original sizes will end up with different final sizes if you use the same margin numbers."
+        "text": "Yes \u2014 one set of four margins is applied uniformly to every page in the file. If different pages need different crops, run the tool separately on split-out sections."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I crop several PDFs at once?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, add multiple files and the same margins are applied to each; you'll get a zip back if you add more than one."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will cropping affect image or text quality?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 cropping only changes the visible page boundary. The content itself isn't re-rendered or compressed."
       }
     }
   ]
@@ -217,7 +230,7 @@
 
     <div class="tool-page-intro">
       <span class="section-tag section-tag--coral">PDF</span>
-      <p>Trim a fixed margin off every page of a PDF — useful for removing wide printer margins or scanner borders before sharing or printing. Add several PDFs to crop them all with the same margins.</p>
+      <p>Cut a fixed border off every page — useful for stripping wide margins before printing booklets, removing a scanner's black edge, or tightening up a PDF that was exported with too much white space. You set the top, right, bottom and left margin in points (72pt = 1 inch), and the same crop is applied to the whole document.</p>
     </div>
 
     <div class="tool-widget-wrap">
@@ -244,20 +257,28 @@
     <section class="tool-seo-content">
       <h2>How to use Crop PDF</h2>
       <ol>
-        <li>Upload your PDF.</li>
-        <li>Enter how many points to trim from the top, right, bottom, and left.</li>
-        <li>Tap Run to download the cropped file.</li>
+        <li>Add one or more PDFs to the drop zone below.</li>
+        <li>Enter the margin to trim from each side, in points.</li>
+        <li>Tap Run — the cropped PDF (or a zip, if you added several) downloads immediately.</li>
       </ol>
 
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
-          <summary>What unit are the margin numbers in?</summary>
-          <p>Points — the standard PDF unit, where 72 points equal 1 inch, so a 36-point margin trims about half an inch from that side.</p>
+          <summary>What unit are the margins in?</summary>
+          <p>Points, the same unit PDF page sizes are measured in. 72 points equals one inch, so a 36pt margin trims about half an inch from that side.</p>
         </details>
         <details>
-          <summary>Can I crop each page to a different size?</summary>
-          <p>No — the same margin is applied to every page uniformly; pages with different original sizes will end up with different final sizes if you use the same margin numbers.</p>
+          <summary>Does this crop every page the same way?</summary>
+          <p>Yes — one set of four margins is applied uniformly to every page in the file. If different pages need different crops, run the tool separately on split-out sections.</p>
+        </details>
+        <details>
+          <summary>Can I crop several PDFs at once?</summary>
+          <p>Yes, add multiple files and the same margins are applied to each; you'll get a zip back if you add more than one.</p>
+        </details>
+        <details>
+          <summary>Will cropping affect image or text quality?</summary>
+          <p>No — cropping only changes the visible page boundary. The content itself isn't re-rendered or compressed.</p>
         </details>
       </div>
     </section>
@@ -265,9 +286,9 @@
     <section class="related-tools">
       <h2>More pdf tools</h2>
       <div class="related-grid">
-        <a href="merge-pdf.html" class="related-card"><h3>Merge PDF</h3><p>Merge two or more PDF files into one, in your chosen order, free and…</p></a>
-        <a href="split-pdf.html" class="related-card"><h3>Split PDF</h3><p>Pull a page range out of a PDF into its own file. Free, browser-based…</p></a>
-        <a href="remove-pages.html" class="related-card"><h3>Remove Pages</h3><p>Delete specific pages from a PDF, like a blank scan or a duplicate —…</p></a>
+        <a href="remove-pages.html" class="related-card"><h3>Remove Pages</h3><p>Delete specific pages from a PDF, like a blank scan or a duplicate — free, in your browser.</p></a>
+        <a href="organize-pdf.html" class="related-card"><h3>Organize PDF</h3><p>Reorder, rotate or drop pages using page thumbnails — free, in your browser.</p></a>
+        <a href="rotate-pdf.html" class="related-card"><h3>Rotate PDF</h3><p>Rotate every page by a fixed angle — free, in your browser.</p></a>
       </div>
     </section>
   </div>
@@ -295,7 +316,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
 <script src="app.js" defer></script>
 </body>
 </html>

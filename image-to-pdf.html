@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Image to PDF — Free, in your browser | gptpayer</title>
-<meta name="description" content="Turn one photo or a whole batch of images into a single PDF, free, with drag-to-reorder before combining.">
+<meta name="description" content="Combine one or more images into a single PDF, in your chosen order, entirely in your browser. No upload, no sign-up.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="gptpayer">
 <meta property="og:title" content="Image to PDF — Free, in your browser | gptpayer">
-<meta property="og:description" content="Turn one photo or a whole batch of images into a single PDF, free, with drag-to-reorder before combining.">
+<meta property="og:description" content="Combine one or more images into a single PDF, in your chosen order, entirely in your browser. No upload, no sign-up.">
 <meta property="og:image" content="https://gptpayer.online/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,11 +25,8 @@
 <!-- Twitter card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Image to PDF — Free, in your browser | gptpayer">
-<meta name="twitter:description" content="Turn one photo or a whole batch of images into a single PDF, free, with drag-to-reorder before combining.">
+<meta name="twitter:description" content="Combine one or more images into a single PDF, in your chosen order, entirely in your browser. No upload, no sign-up.">
 <meta name="twitter:image" content="https://gptpayer.online/og-image.png">
-
-<!-- Google Search Console: uncomment and paste your verification tag once you have it
-<meta name="google-site-verification" content="REPLACE_WITH_YOUR_CODE"> -->
 
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VQ3D9RHGZD"></script>
@@ -58,7 +55,7 @@
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any (runs in web browser)",
   "url": "https://gptpayer.online/image-to-pdf.html",
-  "description": "Turn one photo or a whole batch of images into a single PDF, free, with drag-to-reorder before combining.",
+  "description": "Combine one or more images into a single PDF, in your chosen order, entirely in your browser. No upload, no sign-up.",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -78,18 +75,34 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Does the PDF page size match each image's dimensions?",
+      "name": "Can I mix different image formats?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes \u2014 each page is sized to exactly match its source image's pixel dimensions, so there's no unwanted white border or cropping."
+        "text": "Yes, JPG, PNG and other common image formats can all be added together in the same file."
       }
     },
     {
       "@type": "Question",
-      "name": "Can I mix JPG and PNG images in one PDF?",
+      "name": "Does image quality get reduced?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes \u2014 different image formats can be combined freely in the same batch; each is converted internally so they display consistently in the final PDF."
+        "text": "Images are placed into the PDF at their original resolution, so quality is preserved rather than recompressed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will the page order match how I arranged the images?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 pages appear in the exact order the images are listed in, so reordering the list before running controls the final page order."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a limit on how many images I can add?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No hard limit, though a very large batch of high-resolution images can slow things down since everything runs in your browser tab."
       }
     }
   ]
@@ -217,7 +230,7 @@
 
     <div class="tool-page-intro">
       <span class="section-tag section-tag--teal">Image</span>
-      <p>Combine one or more images into a single PDF, one image per page — handy for turning a batch of scanned receipts or photographed documents into one shareable file.</p>
+      <p>Turns one or more photos or images into a single PDF — handy for bundling receipts, whiteboard photos, or a set of scanned pages into one file you can email or archive, instead of sending a scattered pile of JPGs.</p>
     </div>
 
     <div class="tool-widget-wrap">
@@ -244,20 +257,28 @@
     <section class="tool-seo-content">
       <h2>How to use Image to PDF</h2>
       <ol>
-        <li>Upload one or more images.</li>
-        <li>If you added more than one, drag them into the order you want with the ↑ / ↓ buttons.</li>
-        <li>Tap Run to download a single PDF with each image as its own page.</li>
+        <li>Add one or more images to the drop zone below.</li>
+        <li>Use the ↑ / ↓ buttons to set the order pages should appear in.</li>
+        <li>Tap Run — your PDF downloads immediately, one page per image.</li>
       </ol>
 
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
-          <summary>Does the PDF page size match each image's dimensions?</summary>
-          <p>Yes — each page is sized to exactly match its source image's pixel dimensions, so there's no unwanted white border or cropping.</p>
+          <summary>Can I mix different image formats?</summary>
+          <p>Yes, JPG, PNG and other common image formats can all be added together in the same file.</p>
         </details>
         <details>
-          <summary>Can I mix JPG and PNG images in one PDF?</summary>
-          <p>Yes — different image formats can be combined freely in the same batch; each is converted internally so they display consistently in the final PDF.</p>
+          <summary>Does image quality get reduced?</summary>
+          <p>Images are placed into the PDF at their original resolution, so quality is preserved rather than recompressed.</p>
+        </details>
+        <details>
+          <summary>Will the page order match how I arranged the images?</summary>
+          <p>Yes — pages appear in the exact order the images are listed in, so reordering the list before running controls the final page order.</p>
+        </details>
+        <details>
+          <summary>Is there a limit on how many images I can add?</summary>
+          <p>No hard limit, though a very large batch of high-resolution images can slow things down since everything runs in your browser tab.</p>
         </details>
       </div>
     </section>
@@ -265,9 +286,9 @@
     <section class="related-tools">
       <h2>More image tools</h2>
       <div class="related-grid">
-        <a href="compress-image.html" class="related-card"><h3>Compress Image</h3><p>Compress a JPG, PNG, or other image to reduce file size with an…</p></a>
-        <a href="resize-image.html" class="related-card"><h3>Resize Image</h3><p>Resize an image to exact pixel dimensions, free, with an option to…</p></a>
-        <a href="convert-image.html" class="related-card"><h3>Convert Image</h3><p>Convert an image between JPG, PNG, and WEBP formats, free, right in…</p></a>
+        <a href="merge-pdf.html" class="related-card"><h3>Merge PDF</h3><p>Combine two or more PDFs into one — free, in your browser.</p></a>
+        <a href="scan-to-pdf.html" class="related-card"><h3>Scan to PDF</h3><p>Turn photos of paper documents into a clean PDF — free, in your browser.</p></a>
+        <a href="pdf-to-jpg.html" class="related-card"><h3>PDF to JPG</h3><p>Export every page of a PDF as a JPG — free, in your browser.</p></a>
       </div>
     </section>
   </div>
@@ -294,6 +315,7 @@
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
 <script src="app.js" defer></script>
 </body>
 </html>

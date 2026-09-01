@@ -218,6 +218,9 @@
         <li>Download the converted PDF(s).</li>
       </ol>
 
+      <h2>When this helps most</h2>
+      <p>Locking a document's formatting before sending it somewhere it might get accidentally edited, sharing a résumé or contract with someone who may not have Word installed, or archiving a finished draft in a format that will look the same on any device.</p>
+
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
@@ -227,6 +230,18 @@
         <details>
           <summary>Is my document uploaded anywhere?</summary>
           <p>No — the conversion runs entirely in your browser using a document-parsing library loaded from a CDN. The file itself never leaves your device.</p>
+        </details>
+        <details>
+          <summary>Can I convert several Word documents at once?</summary>
+          <p>Yes — add multiple .docx files and each is converted independently; you'll get a zip back if you add more than one.</p>
+        </details>
+        <details>
+          <summary>Does it work with older .doc files, not just .docx?</summary>
+          <p>The tool accepts both .doc and .docx, though .docx generally converts more reliably since it's the format the underlying parsing library is built around.</p>
+        </details>
+        <details>
+          <summary>Will comments or tracked changes show up in the PDF?</summary>
+          <p>Tracked changes and comments aren't carried over — the PDF reflects the document's final visible text, similar to accepting all changes before exporting from Word.</p>
         </details>
       </div>
     </section>

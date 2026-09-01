@@ -74,7 +74,23 @@
   "@type": "FAQPage",
   "mainEntity": [
     { "@type": "Question", "name": "Will it get every table perfectly right?", "acceptedAnswer": { "@type": "Answer", "text": "Not always. It's a best-effort heuristic based on where text sits on the page, so simple grid tables come out clean while complex or merged-cell tables may need manual tidy-up." } },
-    { "@type": "Question", "name": "What about scanned PDFs?", "acceptedAnswer": { "@type": "Answer", "text": "Run OCR PDF first — this tool needs selectable text to detect columns from." } }
+    { "@type": "Question", "name": "What about scanned PDFs?", "acceptedAnswer": { "@type": "Answer", "text": "Run OCR PDF first — this tool needs selectable text to detect columns from." } },
+    {
+      "@type": "Question",
+      "name": "Will it recognize complex, merged-cell tables?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Best results come from simple grid tables; merged cells or tables without clear column alignment may not extract cleanly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if my PDF has several tables across pages?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Each page becomes its own sheet in the output workbook, grouping text by position into rows and columns."
+      }
+    }
   ]
 }
 </script>
@@ -218,6 +234,9 @@
         <li>Download the .xlsx and check the column alignment.</li>
       </ol>
 
+      <h2>When this helps</h2>
+      <p>Pulling a data table out of a PDF report or invoice into a spreadsheet you can sort, filter, or calculate on.</p>
+
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
@@ -227,6 +246,14 @@
         <details>
           <summary>What about scanned PDFs?</summary>
           <p>Run OCR PDF first — this tool needs selectable text to detect columns from.</p>
+        </details>
+        <details>
+          <summary>Will it recognize complex, merged-cell tables?</summary>
+          <p>Best results come from simple grid tables; merged cells or tables without clear column alignment may not extract cleanly.</p>
+        </details>
+        <details>
+          <summary>What if my PDF has several tables across pages?</summary>
+          <p>Each page becomes its own sheet in the output workbook, grouping text by position into rows and columns.</p>
         </details>
       </div>
     </section>

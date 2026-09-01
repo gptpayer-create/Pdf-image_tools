@@ -74,7 +74,23 @@
   "@type": "FAQPage",
   "mainEntity": [
     { "@type": "Question", "name": "Can I drag elements into place visually?", "acceptedAnswer": { "@type": "Answer", "text": "Not yet — position is set numerically in points, measured from the bottom-left of the page, matching the PDF coordinate system." } },
-    { "@type": "Question", "name": "Can I add more than one element at a time?", "acceptedAnswer": { "@type": "Answer", "text": "One per run. Run the tool again on the downloaded file to keep adding text, boxes or lines." } }
+    { "@type": "Question", "name": "Can I add more than one element at a time?", "acceptedAnswer": { "@type": "Answer", "text": "One per run. Run the tool again on the downloaded file to keep adding text, boxes or lines." } },
+    {
+      "@type": "Question",
+      "name": "Can I edit existing text already in the PDF?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 this tool adds new elements on top of the page rather than modifying text that's already there."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I position an element precisely?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "X and Y are set in points from the left and bottom of the page, so elements can be placed exactly rather than by dragging."
+      }
+    }
   ]
 }
 </script>
@@ -218,6 +234,9 @@
         <li>Tap Run, then re-upload the result to add another element if needed.</li>
       </ol>
 
+      <h2>When this helps</h2>
+      <p>Filling in a missing detail on a form, annotating a page with a note, or drawing attention to a section with a box or line before sending a document on.</p>
+
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
@@ -227,6 +246,14 @@
         <details>
           <summary>Can I add more than one element at a time?</summary>
           <p>One per run. Run the tool again on the downloaded file to keep adding text, boxes or lines.</p>
+        </details>
+        <details>
+          <summary>Can I edit existing text already in the PDF?</summary>
+          <p>No — this tool adds new elements on top of the page rather than modifying text that's already there.</p>
+        </details>
+        <details>
+          <summary>How do I position an element precisely?</summary>
+          <p>X and Y are set in points from the left and bottom of the page, so elements can be placed exactly rather than by dragging.</p>
         </details>
       </div>
     </section>

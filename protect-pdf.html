@@ -75,7 +75,23 @@
   "mainEntity": [
     { "@type": "Question", "name": "Will it really ask for a password when I open it?", "acceptedAnswer": { "@type": "Answer", "text": "Yes — this adds real encryption per the PDF specification (not a cosmetic lock screen), so any standard PDF reader will prompt for your password before showing the content." } },
     { "@type": "Question", "name": "What if I forget the password?", "acceptedAnswer": { "@type": "Answer", "text": "There's no recovery — the password isn't stored anywhere by gptpayer. Keep it somewhere safe." } },
-    { "@type": "Question", "name": "Can I remove a password later?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, use Unlock PDF with the same password to get an unprotected copy back." } }
+    { "@type": "Question", "name": "Can I remove a password later?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, use Unlock PDF with the same password to get an unprotected copy back." } },
+    {
+      "@type": "Question",
+      "name": "Is this strong enough for highly sensitive documents?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "RC4-40 is a legacy but widely compatible standard; for highly sensitive material, a dedicated tool with a stronger modern cipher is a better fit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I protect several PDFs with the same password at once?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 add multiple files and the same password is applied to each."
+      }
+    }
   ]
 }
 </script>
@@ -219,6 +235,9 @@
         <li>Tap Run and download the protected file(s).</li>
       </ol>
 
+      <h2>When this helps</h2>
+      <p>Adding a password to a sensitive document before emailing it, so only someone with the password can open it.</p>
+
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
@@ -232,6 +251,14 @@
         <details>
           <summary>Can I remove a password later?</summary>
           <p>Yes, use Unlock PDF with the same password to get an unprotected copy back.</p>
+        </details>
+        <details>
+          <summary>Is this strong enough for highly sensitive documents?</summary>
+          <p>RC4-40 is a legacy but widely compatible standard; for highly sensitive material, a dedicated tool with a stronger modern cipher is a better fit.</p>
+        </details>
+        <details>
+          <summary>Can I protect several PDFs with the same password at once?</summary>
+          <p>Yes — add multiple files and the same password is applied to each.</p>
         </details>
       </div>
     </section>

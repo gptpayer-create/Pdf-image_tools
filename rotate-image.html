@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rotate Image — Free, in your browser | gptpayer</title>
-<meta name="description" content="Rotate an image 90°, 180°, or 270°, free, right in your browser — fixes sideways phone photos in one click.">
+<meta name="description" content="Rotate one or more images by 90, 180 or 270 degrees, entirely in your browser. No upload, no sign-up.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="gptpayer">
 <meta property="og:title" content="Rotate Image — Free, in your browser | gptpayer">
-<meta property="og:description" content="Rotate an image 90°, 180°, or 270°, free, right in your browser — fixes sideways phone photos in one click.">
+<meta property="og:description" content="Rotate one or more images by 90, 180 or 270 degrees, entirely in your browser. No upload, no sign-up.">
 <meta property="og:image" content="https://gptpayer.online/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,11 +25,8 @@
 <!-- Twitter card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Rotate Image — Free, in your browser | gptpayer">
-<meta name="twitter:description" content="Rotate an image 90°, 180°, or 270°, free, right in your browser — fixes sideways phone photos in one click.">
+<meta name="twitter:description" content="Rotate one or more images by 90, 180 or 270 degrees, entirely in your browser. No upload, no sign-up.">
 <meta name="twitter:image" content="https://gptpayer.online/og-image.png">
-
-<!-- Google Search Console: uncomment and paste your verification tag once you have it
-<meta name="google-site-verification" content="REPLACE_WITH_YOUR_CODE"> -->
 
 <!-- Google Analytics (GA4) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VQ3D9RHGZD"></script>
@@ -58,7 +55,7 @@
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any (runs in web browser)",
   "url": "https://gptpayer.online/rotate-image.html",
-  "description": "Rotate an image 90\u00b0, 180\u00b0, or 270\u00b0, free, right in your browser \u2014 fixes sideways phone photos in one click.",
+  "description": "Rotate one or more images by 90, 180 or 270 degrees, entirely in your browser. No upload, no sign-up.",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -78,18 +75,34 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Does rotating 90\u00b0 swap the width and height?",
+      "name": "Can I rotate several images at once?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes \u2014 for a 90\u00b0 or 270\u00b0 rotation, the output image's dimensions are swapped (a portrait photo becomes landscape, or vice versa) to match the new orientation."
+        "text": "Yes, add multiple images and the same rotation is applied to all of them; you'll get a zip back if you add more than one."
       }
     },
     {
       "@type": "Question",
-      "name": "Will image quality be affected by rotating?",
+      "name": "Does rotating reduce image quality?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No \u2014 rotation is a lossless pixel transformation, so quality stays the same as the original."
+        "text": "No \u2014 rotation by 90\u00b0, 180\u00b0 or 270\u00b0 doesn't require any resampling, so the image data stays exactly as sharp as the original."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if different photos need different rotation amounts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Run the tool separately for each group that needs a different angle, since one rotation setting applies to every image added in a single run."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which image formats are supported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Common formats like JPG, PNG and WEBP."
       }
     }
   ]
@@ -217,7 +230,7 @@
 
     <div class="tool-page-intro">
       <span class="section-tag section-tag--teal">Image</span>
-      <p>Fix a sideways or upside-down photo — usually from a phone camera that got its orientation wrong — with a one-click rotation. Add several photos to rotate them all together.</p>
+      <p>Fixes a sideways or upside-down photo by rotating it a fixed amount — common after importing photos taken in portrait mode, or scans that came out rotated. Add several images at once to rotate a whole batch the same way in one pass.</p>
     </div>
 
     <div class="tool-widget-wrap">
@@ -244,20 +257,28 @@
     <section class="tool-seo-content">
       <h2>How to use Rotate Image</h2>
       <ol>
-        <li>Upload the image that needs rotating.</li>
-        <li>Choose the angle: 90°, 180°, or 270°.</li>
-        <li>Tap Run to download the corrected image.</li>
+        <li>Add one or more images to the drop zone below.</li>
+        <li>Choose a rotation angle: 90°, 180° or 270°.</li>
+        <li>Tap Run — the rotated image (or a zip, if you added several) downloads immediately.</li>
       </ol>
 
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
-          <summary>Does rotating 90° swap the width and height?</summary>
-          <p>Yes — for a 90° or 270° rotation, the output image's dimensions are swapped (a portrait photo becomes landscape, or vice versa) to match the new orientation.</p>
+          <summary>Can I rotate several images at once?</summary>
+          <p>Yes, add multiple images and the same rotation is applied to all of them; you'll get a zip back if you add more than one.</p>
         </details>
         <details>
-          <summary>Will image quality be affected by rotating?</summary>
-          <p>No — rotation is a lossless pixel transformation, so quality stays the same as the original.</p>
+          <summary>Does rotating reduce image quality?</summary>
+          <p>No — rotation by 90°, 180° or 270° doesn't require any resampling, so the image data stays exactly as sharp as the original.</p>
+        </details>
+        <details>
+          <summary>What if different photos need different rotation amounts?</summary>
+          <p>Run the tool separately for each group that needs a different angle, since one rotation setting applies to every image added in a single run.</p>
+        </details>
+        <details>
+          <summary>Which image formats are supported?</summary>
+          <p>Common formats like JPG, PNG and WEBP.</p>
         </details>
       </div>
     </section>
@@ -265,9 +286,9 @@
     <section class="related-tools">
       <h2>More image tools</h2>
       <div class="related-grid">
-        <a href="compress-image.html" class="related-card"><h3>Compress Image</h3><p>Compress a JPG, PNG, or other image to reduce file size with an…</p></a>
-        <a href="resize-image.html" class="related-card"><h3>Resize Image</h3><p>Resize an image to exact pixel dimensions, free, with an option to…</p></a>
-        <a href="convert-image.html" class="related-card"><h3>Convert Image</h3><p>Convert an image between JPG, PNG, and WEBP formats, free, right in…</p></a>
+        <a href="crop-image.html" class="related-card"><h3>Crop Image</h3><p>Drag to crop, or type exact pixel coordinates — free, in your browser.</p></a>
+        <a href="resize-image.html" class="related-card"><h3>Resize Image</h3><p>Set exact pixel dimensions — free, in your browser.</p></a>
+        <a href="convert-image.html" class="related-card"><h3>Convert Image</h3><p>Switch an image between JPG, PNG and WEBP — free, in your browser.</p></a>
       </div>
     </section>
   </div>
@@ -293,7 +314,8 @@
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
 <script src="app.js" defer></script>
 </body>
 </html>

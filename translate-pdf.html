@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Translate PDF — Free, in your browser | gptpayer</title>
-<meta name="description" content="Translate a PDF's text into another language — free, in your browser, using a public translation API.">
+<meta name="description" content="Extract the text from a PDF and translate it using a free public translation service, in your browser.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="gptpayer">
 <meta property="og:title" content="Translate PDF — Free, in your browser | gptpayer">
-<meta property="og:description" content="Translate a PDF's text into another language — free, in your browser, using a public translation API.">
+<meta property="og:description" content="Extract the text from a PDF and translate it using a free public translation service, in your browser.">
 <meta property="og:image" content="https://gptpayer.online/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,7 +25,7 @@
 <!-- Twitter card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Translate PDF — Free, in your browser | gptpayer">
-<meta name="twitter:description" content="Translate a PDF's text into another language — free, in your browser, using a public translation API.">
+<meta name="twitter:description" content="Extract the text from a PDF and translate it using a free public translation service, in your browser.">
 <meta name="twitter:image" content="https://gptpayer.online/og-image.png">
 
 <!-- Google Analytics (GA4) -->
@@ -55,7 +55,7 @@
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any (runs in web browser)",
   "url": "https://gptpayer.online/translate-pdf.html",
-  "description": "Translate a PDF's text into another language — free, in your browser, using a public translation API.",
+  "description": "Extract the text from a PDF and translate it using a free public translation service, in your browser.",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -73,9 +73,38 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Does this upload my file to a server?", "acceptedAnswer": { "@type": "Answer", "text": "The PDF itself is still read entirely in your browser. Only the extracted text is sent, in chunks, to a free public translation API to get translated — not the original file." } },
-    { "@type": "Question", "name": "How accurate is the translation?", "acceptedAnswer": { "@type": "Answer", "text": "It's machine translation, so it's good for getting the gist quickly but can miss nuance, idioms, or formatting. Double-check anything important, especially names and numbers." } },
-    { "@type": "Question", "name": "Why does the output come back as Markdown instead of a PDF?", "acceptedAnswer": { "@type": "Answer", "text": "Rebuilding a translated PDF with the original layout is a much bigger job than translating text — for now this tool focuses on getting an accurate, readable translation out quickly." } }
+    {
+      "@type": "Question",
+      "name": "Does this tool need an internet connection?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 it's the only tool on gptpayer that does, since the translation itself is performed by a free public translation service rather than on your device."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my document's text sent anywhere?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The extracted text is sent to the translation service to be translated; no other tool on this site does that, which is why it's called out here specifically."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does formatting survive translation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 the output is plain translated text, not a re-laid-out PDF, since translated text rarely matches the original's line lengths and spacing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which languages are supported?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Spanish, French, German, Portuguese, Italian, Hindi, Arabic, Simplified Chinese, Japanese and Russian."
+      }
+    }
   ]
 }
 </script>
@@ -84,9 +113,24 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gptpayer.online/" },
-    { "@type": "ListItem", "position": 2, "name": "PDF tools", "item": "https://gptpayer.online/index.html#pdf-tools" },
-    { "@type": "ListItem", "position": 3, "name": "Translate PDF", "item": "https://gptpayer.online/translate-pdf.html" }
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://gptpayer.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "PDF tools",
+      "item": "https://gptpayer.online/index.html#pdf-tools"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Translate PDF",
+      "item": "https://gptpayer.online/translate-pdf.html"
+    }
   ]
 }
 </script>
@@ -185,8 +229,8 @@
     <p class="breadcrumb"><a href="index.html">Home</a> / <a href="index.html#pdf-tools">PDF tools</a> / Translate PDF</p>
 
     <div class="tool-page-intro">
-      <span class="section-tag section-tag--coral">Intelligence</span>
-      <p>Upload a PDF, pick a target language, and its text is extracted and translated. This is the one tool on gptpayer that needs the internet — translation itself runs through a free public translation API, not on-device.</p>
+      <span class="section-tag section-tag--coral">PDF</span>
+      <p>Extracts the text from a PDF and translates it into one of ten languages using a free public translation service. This is the one tool on the whole site that needs an internet connection — every other tool here runs fully offline, but sending text to a translation service is the only way to get a real translation rather than a rough dictionary swap.</p>
     </div>
 
     <div class="tool-widget-wrap">
@@ -203,7 +247,6 @@
 
           <div class="file-list" id="file-list"></div>
           <div class="tool-options" id="tool-options"></div>
-          <div class="tool-dynamic" id="tool-dynamic"></div>
           <button type="button" class="btn btn-coral modal-run" id="modal-run" disabled>Choose a file first</button>
           <div class="modal-status" id="modal-status" role="status" aria-live="polite"></div>
           <div class="modal-result" id="modal-result"></div>
@@ -214,24 +257,28 @@
     <section class="tool-seo-content">
       <h2>How to use Translate PDF</h2>
       <ol>
-        <li>Add a PDF file.</li>
-        <li>Choose a target language.</li>
-        <li>Tap Run and download the translated text as Markdown.</li>
+        <li>Add a single PDF to the drop zone below.</li>
+        <li>Choose the language to translate into.</li>
+        <li>Tap Run — the translated text downloads as a file.</li>
       </ol>
 
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
-          <summary>Does this upload my file to a server?</summary>
-          <p>The PDF itself is still read entirely in your browser. Only the extracted text is sent, in chunks, to a free public translation API to get translated — not the original file.</p>
+          <summary>Does this tool need an internet connection?</summary>
+          <p>Yes — it's the only tool on gptpayer that does, since the translation itself is performed by a free public translation service rather than on your device.</p>
         </details>
         <details>
-          <summary>How accurate is the translation?</summary>
-          <p>It's machine translation, so it's good for getting the gist quickly but can miss nuance, idioms, or formatting. Double-check anything important, especially names and numbers.</p>
+          <summary>Is my document's text sent anywhere?</summary>
+          <p>The extracted text is sent to the translation service to be translated; no other tool on this site does that, which is why it's called out here specifically.</p>
         </details>
         <details>
-          <summary>Why does the output come back as Markdown instead of a PDF?</summary>
-          <p>Rebuilding a translated PDF with the original layout is a much bigger job than translating text — for now this tool focuses on getting an accurate, readable translation out quickly.</p>
+          <summary>Does formatting survive translation?</summary>
+          <p>No — the output is plain translated text, not a re-laid-out PDF, since translated text rarely matches the original's line lengths and spacing.</p>
+        </details>
+        <details>
+          <summary>Which languages are supported?</summary>
+          <p>Spanish, French, German, Portuguese, Italian, Hindi, Arabic, Simplified Chinese, Japanese and Russian.</p>
         </details>
       </div>
     </section>
@@ -239,9 +286,9 @@
     <section class="related-tools">
       <h2>More pdf tools</h2>
       <div class="related-grid">
-        <a href="ai-summarizer.html" class="related-card"><h3>AI Summarizer</h3><p>Pull the key sentences out of a long PDF, on-device — free, in your browser…</p></a>
-        <a href="pdf-to-markdown.html" class="related-card"><h3>PDF to Markdown</h3><p>Extract structured Markdown from a PDF — free, entirely in your browser…</p></a>
-        <a href="ocr-pdf.html" class="related-card"><h3>OCR PDF</h3><p>Recognize text on scanned pages, on-device, and export as Markdown…</p></a>
+        <a href="ai-summarizer.html" class="related-card"><h3>AI Summarizer</h3><p>Pull the most important sentences out of a PDF — free, in your browser.</p></a>
+        <a href="pdf-to-markdown.html" class="related-card"><h3>PDF to Markdown</h3><p>Extract text and headings from a PDF — free, in your browser.</p></a>
+        <a href="ocr-pdf.html" class="related-card"><h3>OCR PDF</h3><p>Recognize text on scanned pages — free, in your browser.</p></a>
       </div>
     </section>
   </div>
@@ -267,6 +314,7 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
 <script src="app.js" defer></script>
 </body>

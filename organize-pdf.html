@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Organize PDF — Free, in your browser | gptpayer</title>
-<meta name="description" content="Reorder, rotate and remove PDF pages visually using page thumbnails — free, entirely in your browser.">
+<meta name="description" content="Reorder, rotate or delete pages using page thumbnails, entirely in your browser. No upload, no sign-up.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="gptpayer">
 <meta property="og:title" content="Organize PDF — Free, in your browser | gptpayer">
-<meta property="og:description" content="Reorder, rotate and remove PDF pages visually using page thumbnails — free, entirely in your browser.">
+<meta property="og:description" content="Reorder, rotate or delete pages using page thumbnails, entirely in your browser. No upload, no sign-up.">
 <meta property="og:image" content="https://gptpayer.online/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,7 +25,7 @@
 <!-- Twitter card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Organize PDF — Free, in your browser | gptpayer">
-<meta name="twitter:description" content="Reorder, rotate and remove PDF pages visually using page thumbnails — free, entirely in your browser.">
+<meta name="twitter:description" content="Reorder, rotate or delete pages using page thumbnails, entirely in your browser. No upload, no sign-up.">
 <meta name="twitter:image" content="https://gptpayer.online/og-image.png">
 
 <!-- Google Analytics (GA4) -->
@@ -55,7 +55,7 @@
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any (runs in web browser)",
   "url": "https://gptpayer.online/organize-pdf.html",
-  "description": "Reorder, rotate and remove PDF pages visually using page thumbnails — free, entirely in your browser.",
+  "description": "Reorder, rotate or delete pages using page thumbnails, entirely in your browser. No upload, no sign-up.",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -73,8 +73,38 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Does this touch the original file?", "acceptedAnswer": { "@type": "Answer", "text": "No — your original file never leaves your device and isn't modified. A new, reorganized copy is generated and downloaded." } },
-    { "@type": "Question", "name": "Can I remove every page?", "acceptedAnswer": { "@type": "Answer", "text": "No, at least one page has to remain in the output file." } }
+    {
+      "@type": "Question",
+      "name": "Can I work on more than one PDF at a time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Organize works on one file at a time, since the page thumbnails and drag order are specific to that document. Repeat the process for other files."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does rotating a page here affect the rest of the document?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 each page can be rotated independently; rotating one thumbnail doesn't change any of the others."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens to a page I delete?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It's simply left out of the saved file \u2014 nothing is uploaded anywhere, so the removed page never leaves your device either."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a page limit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No hard limit, but PDFs with hundreds of pages will take longer to render thumbnails for, since everything happens in your browser tab."
+      }
+    }
   ]
 }
 </script>
@@ -83,9 +113,24 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gptpayer.online/" },
-    { "@type": "ListItem", "position": 2, "name": "PDF tools", "item": "https://gptpayer.online/index.html#pdf-tools" },
-    { "@type": "ListItem", "position": 3, "name": "Organize PDF", "item": "https://gptpayer.online/organize-pdf.html" }
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://gptpayer.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "PDF tools",
+      "item": "https://gptpayer.online/index.html#pdf-tools"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Organize PDF",
+      "item": "https://gptpayer.online/organize-pdf.html"
+    }
   ]
 }
 </script>
@@ -185,7 +230,7 @@
 
     <div class="tool-page-intro">
       <span class="section-tag section-tag--coral">PDF</span>
-      <p>See every page as a thumbnail, move pages up or down, rotate any page 90° at a time, or drop pages you don't need — then rebuild the PDF in the new order, all on your device.</p>
+      <p>See every page of a PDF as a thumbnail, then drag pages into a new order, rotate individual pages, or drop the ones you don't need — all before saving a single reorganized file. This is the tool to reach for when a scan came out of order, a chapter needs moving, or a stray page landed sideways.</p>
     </div>
 
     <div class="tool-widget-wrap">
@@ -202,7 +247,6 @@
 
           <div class="file-list" id="file-list"></div>
           <div class="tool-options" id="tool-options"></div>
-          <div class="tool-dynamic" id="tool-dynamic"></div>
           <button type="button" class="btn btn-coral modal-run" id="modal-run" disabled>Choose a file first</button>
           <div class="modal-status" id="modal-status" role="status" aria-live="polite"></div>
           <div class="modal-result" id="modal-result"></div>
@@ -213,20 +257,28 @@
     <section class="tool-seo-content">
       <h2>How to use Organize PDF</h2>
       <ol>
-        <li>Add a PDF — thumbnails of every page load below.</li>
-        <li>Use ↑ / ↓ to reorder, ⟳ to rotate a page, or ✕ to remove it.</li>
+        <li>Add a single PDF to the drop zone below.</li>
+        <li>Drag thumbnails to reorder them, rotate individual pages, or remove the ones you don't want.</li>
         <li>Tap Run — the reorganized PDF downloads immediately.</li>
       </ol>
 
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
-          <summary>Does this touch the original file?</summary>
-          <p>No — your original file never leaves your device and isn't modified. A new, reorganized copy is generated and downloaded.</p>
+          <summary>Can I work on more than one PDF at a time?</summary>
+          <p>Organize works on one file at a time, since the page thumbnails and drag order are specific to that document. Repeat the process for other files.</p>
         </details>
         <details>
-          <summary>Can I remove every page?</summary>
-          <p>No, at least one page has to remain in the output file.</p>
+          <summary>Does rotating a page here affect the rest of the document?</summary>
+          <p>No — each page can be rotated independently; rotating one thumbnail doesn't change any of the others.</p>
+        </details>
+        <details>
+          <summary>What happens to a page I delete?</summary>
+          <p>It's simply left out of the saved file — nothing is uploaded anywhere, so the removed page never leaves your device either.</p>
+        </details>
+        <details>
+          <summary>Is there a page limit?</summary>
+          <p>No hard limit, but PDFs with hundreds of pages will take longer to render thumbnails for, since everything happens in your browser tab.</p>
         </details>
       </div>
     </section>
@@ -234,9 +286,9 @@
     <section class="related-tools">
       <h2>More pdf tools</h2>
       <div class="related-grid">
-        <a href="merge-pdf.html" class="related-card"><h3>Merge PDF</h3><p>Combine multiple PDFs into a single ordered file — free, in your browser…</p></a>
-        <a href="remove-pages.html" class="related-card"><h3>Remove Pages</h3><p>Delete specific pages from a PDF, like a blank scan or a duplicate —…</p></a>
-        <a href="rotate-pdf.html" class="related-card"><h3>Rotate PDF</h3><p>Fix sideways or upside-down pages in one pass — free, in your browser…</p></a>
+        <a href="crop-pdf.html" class="related-card"><h3>Crop PDF</h3><p>Trim a fixed margin off every page — free, in your browser.</p></a>
+        <a href="rotate-pdf.html" class="related-card"><h3>Rotate PDF</h3><p>Rotate every page by a fixed angle — free, in your browser.</p></a>
+        <a href="remove-pages.html" class="related-card"><h3>Remove Pages</h3><p>Delete specific pages from a PDF — free, in your browser.</p></a>
       </div>
     </section>
   </div>

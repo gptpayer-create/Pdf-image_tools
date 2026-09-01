@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Summarizer — Free, in your browser | gptpayer</title>
-<meta name="description" content="Pull the key sentences out of a long PDF with an on-device summarizer — free, entirely in your browser.">
+<meta name="description" content="An on-device algorithm pulls the most important sentences out of a PDF, fully offline, entirely in your browser.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="gptpayer">
 <meta property="og:title" content="AI Summarizer — Free, in your browser | gptpayer">
-<meta property="og:description" content="Pull the key sentences out of a long PDF with an on-device summarizer — free, entirely in your browser.">
+<meta property="og:description" content="An on-device algorithm pulls the most important sentences out of a PDF, fully offline, entirely in your browser.">
 <meta property="og:image" content="https://gptpayer.online/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,7 +25,7 @@
 <!-- Twitter card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AI Summarizer — Free, in your browser | gptpayer">
-<meta name="twitter:description" content="Pull the key sentences out of a long PDF with an on-device summarizer — free, entirely in your browser.">
+<meta name="twitter:description" content="An on-device algorithm pulls the most important sentences out of a PDF, fully offline, entirely in your browser.">
 <meta name="twitter:image" content="https://gptpayer.online/og-image.png">
 
 <!-- Google Analytics (GA4) -->
@@ -55,7 +55,7 @@
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any (runs in web browser)",
   "url": "https://gptpayer.online/ai-summarizer.html",
-  "description": "Pull the key sentences out of a long PDF with an on-device summarizer — free, entirely in your browser.",
+  "description": "An on-device algorithm pulls the most important sentences out of a PDF, fully offline, entirely in your browser.",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -73,8 +73,38 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "Is this powered by an LLM like GPT or Claude?", "acceptedAnswer": { "@type": "Answer", "text": "No — it's an on-device, frequency-based extractive algorithm (similar in spirit to TextRank) that picks out existing sentences from your document. It doesn't generate new sentences, and nothing is sent to any AI service." } },
-    { "@type": "Question", "name": "What kind of documents work best?", "acceptedAnswer": { "@type": "Answer", "text": "Well-structured prose (articles, reports, essays) works best. Densely tabular or scanned PDFs won't summarize well — run OCR PDF first if it's a scan." } }
+    {
+      "@type": "Question",
+      "name": "Is this the same as ChatGPT or another cloud AI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 it's an on-device, offline algorithm that scores and selects existing sentences from your document, rather than a large language model generating new text on a server. That's also why it works without an internet connection."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will it summarize scanned PDFs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Only if there's an extractable text layer. For scanned pages, run OCR PDF first."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long is a 'long' summary?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It scales relative to the source document's length rather than a fixed word count, pulling proportionally more of the highest-scoring sentences."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work well on any type of document?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It's built for prose \u2014 reports, articles, essays. Documents that are mostly tables, forms or bullet fragments don't summarize as cleanly since there are fewer full sentences to score."
+      }
+    }
   ]
 }
 </script>
@@ -83,9 +113,24 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gptpayer.online/" },
-    { "@type": "ListItem", "position": 2, "name": "PDF tools", "item": "https://gptpayer.online/index.html#pdf-tools" },
-    { "@type": "ListItem", "position": 3, "name": "AI Summarizer", "item": "https://gptpayer.online/ai-summarizer.html" }
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://gptpayer.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "PDF tools",
+      "item": "https://gptpayer.online/index.html#pdf-tools"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "AI Summarizer",
+      "item": "https://gptpayer.online/ai-summarizer.html"
+    }
   ]
 }
 </script>
@@ -184,8 +229,8 @@
     <p class="breadcrumb"><a href="index.html">Home</a> / <a href="index.html#pdf-tools">PDF tools</a> / AI Summarizer</p>
 
     <div class="tool-page-intro">
-      <span class="section-tag section-tag--coral">Intelligence</span>
-      <p>Upload a PDF and an on-device algorithm scores every sentence by how central it is to the document, then keeps the highest-scoring ones in their original order. It's a real extractive-summary algorithm running fully offline — not a cloud AI model.</p>
+      <span class="section-tag section-tag--coral">PDF</span>
+      <p>Picks out the sentences that carry the most weight in a document and returns them as a short, medium or long summary — useful for getting the gist of a long report before deciding whether to read the whole thing. This runs as an on-device extractive algorithm rather than a cloud AI model, so nothing is sent anywhere and there's no waiting on a server.</p>
     </div>
 
     <div class="tool-widget-wrap">
@@ -202,7 +247,6 @@
 
           <div class="file-list" id="file-list"></div>
           <div class="tool-options" id="tool-options"></div>
-          <div class="tool-dynamic" id="tool-dynamic"></div>
           <button type="button" class="btn btn-coral modal-run" id="modal-run" disabled>Choose a file first</button>
           <div class="modal-status" id="modal-status" role="status" aria-live="polite"></div>
           <div class="modal-result" id="modal-result"></div>
@@ -213,20 +257,28 @@
     <section class="tool-seo-content">
       <h2>How to use AI Summarizer</h2>
       <ol>
-        <li>Add a PDF file.</li>
-        <li>Choose a summary length.</li>
-        <li>Tap Run and download the summary as Markdown.</li>
+        <li>Add a single PDF to the drop zone below.</li>
+        <li>Choose a summary length: short, medium or long.</li>
+        <li>Tap Run — the summary downloads as a text file.</li>
       </ol>
 
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
-          <summary>Is this powered by an LLM like GPT or Claude?</summary>
-          <p>No — it's an on-device, frequency-based extractive algorithm (similar in spirit to TextRank) that picks out existing sentences from your document. It doesn't generate new sentences, and nothing is sent to any AI service.</p>
+          <summary>Is this the same as ChatGPT or another cloud AI?</summary>
+          <p>No — it's an on-device, offline algorithm that scores and selects existing sentences from your document, rather than a large language model generating new text on a server. That's also why it works without an internet connection.</p>
         </details>
         <details>
-          <summary>What kind of documents work best?</summary>
-          <p>Well-structured prose (articles, reports, essays) works best. Densely tabular or scanned PDFs won't summarize well — run OCR PDF first if it's a scan.</p>
+          <summary>Will it summarize scanned PDFs?</summary>
+          <p>Only if there's an extractable text layer. For scanned pages, run OCR PDF first.</p>
+        </details>
+        <details>
+          <summary>How long is a 'long' summary?</summary>
+          <p>It scales relative to the source document's length rather than a fixed word count, pulling proportionally more of the highest-scoring sentences.</p>
+        </details>
+        <details>
+          <summary>Does it work well on any type of document?</summary>
+          <p>It's built for prose — reports, articles, essays. Documents that are mostly tables, forms or bullet fragments don't summarize as cleanly since there are fewer full sentences to score.</p>
         </details>
       </div>
     </section>
@@ -234,9 +286,9 @@
     <section class="related-tools">
       <h2>More pdf tools</h2>
       <div class="related-grid">
-        <a href="pdf-to-markdown.html" class="related-card"><h3>PDF to Markdown</h3><p>Extract structured Markdown from a PDF — free, entirely in your browser…</p></a>
-        <a href="translate-pdf.html" class="related-card"><h3>Translate PDF</h3><p>Translate a PDF's text into another language — free, in your browser…</p></a>
-        <a href="ocr-pdf.html" class="related-card"><h3>OCR PDF</h3><p>Recognize text on scanned pages, on-device, and export as Markdown…</p></a>
+        <a href="pdf-to-markdown.html" class="related-card"><h3>PDF to Markdown</h3><p>Extract text and headings from a PDF — free, in your browser.</p></a>
+        <a href="translate-pdf.html" class="related-card"><h3>Translate PDF</h3><p>Extract and translate the text of a PDF — free, in your browser.</p></a>
+        <a href="ocr-pdf.html" class="related-card"><h3>OCR PDF</h3><p>Recognize text on scanned pages — free, in your browser.</p></a>
       </div>
     </section>
   </div>
@@ -262,6 +314,7 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
 <script src="app.js" defer></script>
 </body>

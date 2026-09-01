@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Compare PDF — Free, in your browser | gptpayer</title>
-<meta name="description" content="See exactly what text changed between two versions of a PDF, page by page — free, in your browser.">
+<meta name="description" content="Compare two PDFs line by line and page by page to spot what changed, entirely in your browser. No upload, no sign-up.">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="gptpayer">
 <meta property="og:title" content="Compare PDF — Free, in your browser | gptpayer">
-<meta property="og:description" content="See exactly what text changed between two versions of a PDF, page by page — free, in your browser.">
+<meta property="og:description" content="Compare two PDFs line by line and page by page to spot what changed, entirely in your browser. No upload, no sign-up.">
 <meta property="og:image" content="https://gptpayer.online/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -25,7 +25,7 @@
 <!-- Twitter card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Compare PDF — Free, in your browser | gptpayer">
-<meta name="twitter:description" content="See exactly what text changed between two versions of a PDF, page by page — free, in your browser.">
+<meta name="twitter:description" content="Compare two PDFs line by line and page by page to spot what changed, entirely in your browser. No upload, no sign-up.">
 <meta name="twitter:image" content="https://gptpayer.online/og-image.png">
 
 <!-- Google Analytics (GA4) -->
@@ -55,7 +55,7 @@
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "Any (runs in web browser)",
   "url": "https://gptpayer.online/compare-pdf.html",
-  "description": "See exactly what text changed between two versions of a PDF, page by page — free, in your browser.",
+  "description": "Compare two PDFs line by line and page by page to spot what changed, entirely in your browser. No upload, no sign-up.",
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -73,8 +73,38 @@
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "What if I add more than two files?", "acceptedAnswer": { "@type": "Answer", "text": "Only the first two are compared." } },
-    { "@type": "Question", "name": "Does this compare images or just text?", "acceptedAnswer": { "@type": "Answer", "text": "Just text. Layout, images and formatting differences aren't detected — only changes to the extracted text of each page." } }
+    {
+      "@type": "Question",
+      "name": "What if I add more than two files?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Only the first two files added are compared; any others are ignored for this tool."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it compare formatting or just text?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The comparison works line by line on the extracted text of each page, so it's built to catch wording and content changes rather than subtle visual formatting differences."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can it compare PDFs with different page counts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 pages are compared where they exist on both sides, and extra pages on either document are flagged as additions or removals."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are my files sent anywhere for comparison?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, the comparison runs locally in your browser tab."
+      }
+    }
   ]
 }
 </script>
@@ -83,9 +113,24 @@
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gptpayer.online/" },
-    { "@type": "ListItem", "position": 2, "name": "PDF tools", "item": "https://gptpayer.online/index.html#pdf-tools" },
-    { "@type": "ListItem", "position": 3, "name": "Compare PDF", "item": "https://gptpayer.online/compare-pdf.html" }
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://gptpayer.online/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "PDF tools",
+      "item": "https://gptpayer.online/index.html#pdf-tools"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Compare PDF",
+      "item": "https://gptpayer.online/compare-pdf.html"
+    }
   ]
 }
 </script>
@@ -185,7 +230,7 @@
 
     <div class="tool-page-intro">
       <span class="section-tag section-tag--coral">PDF</span>
-      <p>Add two PDFs and get back an HTML report, page by page, with removed lines struck through in red and added lines highlighted in green.</p>
+      <p>Add two versions of the same document — a draft and a final, or two contract revisions — and see the differences page by page and line by line, without emailing files back and forth or reading both side by side by eye.</p>
     </div>
 
     <div class="tool-widget-wrap">
@@ -202,7 +247,6 @@
 
           <div class="file-list" id="file-list"></div>
           <div class="tool-options" id="tool-options"></div>
-          <div class="tool-dynamic" id="tool-dynamic"></div>
           <button type="button" class="btn btn-coral modal-run" id="modal-run" disabled>Choose a file first</button>
           <div class="modal-status" id="modal-status" role="status" aria-live="polite"></div>
           <div class="modal-result" id="modal-result"></div>
@@ -213,20 +257,28 @@
     <section class="tool-seo-content">
       <h2>How to use Compare PDF</h2>
       <ol>
-        <li>Add the original PDF, then the revised PDF (in that order).</li>
-        <li>Tap Run.</li>
-        <li>Open the downloaded comparison.html in your browser to review the differences.</li>
+        <li>Add exactly two PDFs to the drop zone below (the first two you add are the ones compared).</li>
+        <li>Tap Run — the comparison happens automatically.</li>
+        <li>Review the line-by-line, page-by-page differences in the results.</li>
       </ol>
 
       <h2>FAQ</h2>
       <div class="tool-faq">
         <details>
           <summary>What if I add more than two files?</summary>
-          <p>Only the first two are compared.</p>
+          <p>Only the first two files added are compared; any others are ignored for this tool.</p>
         </details>
         <details>
-          <summary>Does this compare images or just text?</summary>
-          <p>Just text. Layout, images and formatting differences aren't detected — only changes to the extracted text of each page.</p>
+          <summary>Does it compare formatting or just text?</summary>
+          <p>The comparison works line by line on the extracted text of each page, so it's built to catch wording and content changes rather than subtle visual formatting differences.</p>
+        </details>
+        <details>
+          <summary>Can it compare PDFs with different page counts?</summary>
+          <p>Yes — pages are compared where they exist on both sides, and extra pages on either document are flagged as additions or removals.</p>
+        </details>
+        <details>
+          <summary>Are my files sent anywhere for comparison?</summary>
+          <p>No, the comparison runs locally in your browser tab.</p>
         </details>
       </div>
     </section>
@@ -234,9 +286,9 @@
     <section class="related-tools">
       <h2>More pdf tools</h2>
       <div class="related-grid">
-        <a href="merge-pdf.html" class="related-card"><h3>Merge PDF</h3><p>Combine multiple PDFs into a single ordered file — free, in your browser…</p></a>
-        <a href="extract-pages.html" class="related-card"><h3>Extract Pages</h3><p>Pull specific, non-continuous pages out of a PDF into a new file —…</p></a>
-        <a href="pdf-to-markdown.html" class="related-card"><h3>PDF to Markdown</h3><p>Turn a PDF into clean Markdown text — free, in your browser…</p></a>
+        <a href="merge-pdf.html" class="related-card"><h3>Merge PDF</h3><p>Combine two or more PDFs into one — free, in your browser.</p></a>
+        <a href="pdf-to-markdown.html" class="related-card"><h3>PDF to Markdown</h3><p>Extract text and headings from a PDF — free, in your browser.</p></a>
+        <a href="repair-pdf.html" class="related-card"><h3>Repair PDF</h3><p>Fix a PDF that won't open properly — free, in your browser.</p></a>
       </div>
     </section>
   </div>
@@ -262,6 +314,7 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
 <script src="app.js" defer></script>
 </body>
